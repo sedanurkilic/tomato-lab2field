@@ -1,0 +1,7 @@
+canonical_class,PlantVillage_count,train,validation,test,PlantDoc_count,PlantDoc_evaluation_count
+Tomato___Bacterial_spot,2127,1489,319,319,110,109
+Tomato___Early_blight,1000,700,150,150,88,88
+Tomato___Late_blight,1909,1336,287,286,111,111
+Tomato___Leaf_Mold,952,666,143,143,91,91
+Tomato___Septoria_leaf_spot,1771,1240,266,265,151,150
+Tomato___Tomato_mosaic_virus,373,261,56,56,54,54

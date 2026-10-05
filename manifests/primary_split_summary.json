@@ -1,0 +1,72 @@
+{
+  "full_inventory_counts": {
+    "plantvillage": 16011,
+    "plantdoc": 746
+  },
+  "primary_PlantVillage_count": 8132,
+  "primary_PlantDoc_before_exclusions": 605,
+  "PlantDoc_evaluation_count": 603,
+  "split_counts": {
+    "test": 1219,
+    "train": 5692,
+    "validation": 1221
+  },
+  "duplicate_leakage": false,
+  "cross_dataset_exact_duplicates": false,
+  "per_class": [
+    {
+      "canonical_class": "Tomato___Bacterial_spot",
+      "PlantVillage_count": 2127,
+      "train": 1489,
+      "validation": 319,
+      "test": 319,
+      "PlantDoc_count": 110,
+      "PlantDoc_evaluation_count": 109
+    },
+    {
+      "canonical_class": "Tomato___Early_blight",
+      "PlantVillage_count": 1000,
+      "train": 700,
+      "validation": 150,
+      "test": 150,
+      "PlantDoc_count": 88,
+      "PlantDoc_evaluation_count": 88
+    },
+    {
+      "canonical_class": "Tomato___Late_blight",
+      "PlantVillage_count": 1909,
+      "train": 1336,
+      "validation": 287,
+      "test": 286,
+      "PlantDoc_count": 111,
+      "PlantDoc_evaluation_count": 111
+    },
+    {
+      "canonical_class": "Tomato___Leaf_Mold",
+      "PlantVillage_count": 952,
+      "train": 666,
+      "validation": 143,
+      "test": 143,
+      "PlantDoc_count": 91,
+      "PlantDoc_evaluation_count": 91
+    },
+    {
+      "canonical_class": "Tomato___Septoria_leaf_spot",
+      "PlantVillage_count": 1771,
+      "train": 1240,
+      "validation": 266,
+      "test": 265,
+      "PlantDoc_count": 151,
+      "PlantDoc_evaluation_count": 150
+    },
+    {
+      "canonical_class": "Tomato___Tomato_mosaic_virus",
+      "PlantVillage_count": 373,
+      "train": 261,
+      "validation": 56,
+      "test": 56,
+      "PlantDoc_count": 54,
+      "PlantDoc_evaluation_count": 54
+    }
+  ]
+}

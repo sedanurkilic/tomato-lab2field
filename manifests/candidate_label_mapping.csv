@@ -1,0 +1,11 @@
+plantvillage_label,plantdoc_label,candidate_canonical_label,status,notes,plantvillage_image_count,plantdoc_image_count,recommendation
+tomato_leaf_bacterial_spot,tomato_leaf_bacterial_spot,Tomato___Bacterial_spot,pending_user_approval,Klasör adlarından aday eşleşme; final sınıf onayı değildir.,2127,110,proposed_core
+tomato_leaf_early_blight,tomato_leaf_early_blight,Tomato___Early_blight,pending_user_approval,Klasör adlarından aday eşleşme; final sınıf onayı değildir.,1000,88,proposed_core
+tomato_leaf_healthy,tomato_leaf_healthy,Tomato___healthy,pending_user_approval,PlantDoc statistics.txt özgün etiketi Tomato leaf; healthy anlamı doğrulanmalı.,1591,63,conditional_semantic_verification
+tomato_leaf_late_blight,tomato_leaf_late_blight,Tomato___Late_blight,pending_user_approval,Klasör adlarından aday eşleşme; final sınıf onayı değildir.,1909,111,proposed_core
+tomato_leaf_mold,tomato_leaf_mold,Tomato___Leaf_Mold,pending_user_approval,Klasör adlarından aday eşleşme; final sınıf onayı değildir.,952,91,proposed_core
+tomato_leaf_mosaic_virus,tomato_leaf_mosaic_virus,Tomato___Tomato_mosaic_virus,pending_user_approval,İki sette mevcut; protokol bölüm 3 başlangıç aday listesinde yok. Dahil etme kararı bekliyor.,373,54,conditional_protocol_extension
+tomato_leaf_two_spotted_spider_mites,tomato_leaf_two_spotted_spider_mites,Tomato___Spider_mites_Two-spotted_spider_mite,pending_user_approval,Klasör adlarından aday eşleşme; final sınıf onayı değildir.,1676,2,proposed_core
+tomato_leaf_yellow_virus,tomato_leaf_yellow_virus,Tomato___Yellow_Leaf_Curl_Virus,pending_user_approval,PlantDoc yellow virus etiketi TYLCV olduğunu tek başına kanıtlamaz; kaynak etiketi doğrulanmalı.,3208,76,conditional_semantic_verification
+tomato_septoria_leaf_spot,tomato_septoria_leaf_spot,Tomato___Septoria_leaf_spot,pending_user_approval,Klasör adlarından aday eşleşme; final sınıf onayı değildir.,1771,151,proposed_core
+tomato_target_spot,,Tomato___Target_Spot,pending_user_approval,PlantDoc karşılığı yok; ortak sınıf adayı değil.,1404,0,not_shared

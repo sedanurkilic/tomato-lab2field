@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-05",
+  "status": "audit_finalized_pending_class_approval",
+  "canonical_class_set_frozen": false,
+  "splits_created": false,
+  "duplicate_group_id_rule": "dup_sha256_<full content sha256>; blank for singleton",
+  "duplicate_groups": 17,
+  "within_dataset_duplicate_groups": {
+    "plantvillage": 14,
+    "plantdoc": 3
+  },
+  "cross_dataset_duplicate_groups": 0,
+  "label_conflict_groups": 1,
+  "proposed_core_intersection": [
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Spider_mites_Two-spotted_spider_mite",
+    "Tomato___Septoria_leaf_spot"
+  ],
+  "conditional_additions": [
+    "Tomato___healthy",
+    "Tomato___Tomato_mosaic_virus",
+    "Tomato___Yellow_Leaf_Curl_Virus"
+  ]
+}

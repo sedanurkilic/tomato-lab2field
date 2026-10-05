@@ -1,0 +1,6 @@
+dataset,relative_path,extension
+plantvillage,data/processed/tomato_plantvillage/.DS_Store,
+plantvillage,data/processed/tomato_plantvillage/statistics.txt,.txt
+plantvillage,data/processed/tomato_plantvillage/tomato_leaf_yellow_virus/svn-r6Yb5c,
+plantdoc,data/processed/tomato_plantdoc/.DS_Store,
+plantdoc,data/processed/tomato_plantdoc/statistics.txt,.txt

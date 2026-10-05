@@ -1,0 +1,37 @@
+{
+  "frozen": true,
+  "approved_by": "explicit_user_instruction",
+  "date": "2026-10-06",
+  "canonical_classes": [
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Tomato_mosaic_virus"
+  ],
+  "original_to_canonical": {
+    "tomato_leaf_bacterial_spot": "Tomato___Bacterial_spot",
+    "tomato_leaf_early_blight": "Tomato___Early_blight",
+    "tomato_leaf_late_blight": "Tomato___Late_blight",
+    "tomato_leaf_mold": "Tomato___Leaf_Mold",
+    "tomato_septoria_leaf_spot": "Tomato___Septoria_leaf_spot",
+    "tomato_leaf_mosaic_virus": "Tomato___Tomato_mosaic_virus"
+  },
+  "split_seed": 42,
+  "ratios": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "rounding": "largest remainder per class; ties train, validation, test",
+  "grouping": "duplicate_group_id or image_id; largest groups first",
+  "plantdoc_role": "external_target_test",
+  "excluded_target_duplicate_groups": [
+    "dup_sha256_e23a29c94b58aac28e92f57f95eb6f53e99c874323cb2b90ebd327085721574e"
+  ],
+  "source_manifest_sha256": {
+    "plantvillage": "0d88801eee23ea37f0f7af6daa1a29e19c96e544783cd37ae621ff3ea9f5e7f2",
+    "plantdoc": "635ff28e2aa9ad38e3fa3ab14d9ab01586ed8ae0cb326f2d2ee1d69fe1912c9e"
+  }
+}

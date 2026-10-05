@@ -1,0 +1,29 @@
+{
+  "audit_date": "2026-10-05",
+  "protocol_sha256": "9534afbf3a2c0082b2a837865e8ba8214923f8f2096eb82d45ad4da284efe7b7",
+  "datasets": {
+    "plantvillage": {
+      "class_count": 10,
+      "image_count": 16011,
+      "extensions": {
+        ".JPG": 15857,
+        ".jpeg": 1,
+        ".jpg": 153
+      },
+      "within_dataset_duplicate_groups": 14
+    },
+    "plantdoc": {
+      "class_count": 9,
+      "image_count": 746,
+      "extensions": {
+        ".jpg": 745,
+        ".png": 1
+      },
+      "within_dataset_duplicate_groups": 3
+    }
+  },
+  "invalid_image_count": 0,
+  "non_image_file_count": 5,
+  "duplicate_groups": 17,
+  "cross_dataset_duplicate_groups": 0
+}
