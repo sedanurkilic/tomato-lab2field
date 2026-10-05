@@ -1,0 +1,57 @@
+# DATA
+
+# Raw datasets
+data/raw/
+
+# Processed datasets are local artifacts, not source code
+data/processed/
+
+# MODEL / FEATURE ARTIFACTS
+
+models/
+artifacts/
+
+# Common model / tensor files
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.onnx
+*.npz
+*.npy
+
+# RESULTS
+
+results/
+
+# Keep lightweight result summaries only if intentionally added elsewhere
+# e.g. docs/results_summary.csv
+
+# PYTHON
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+.venv/
+venv/
+env/
+
+# IDE
+
+.vscode/
+.idea/
+
+# JUPYTER
+
+.ipynb_checkpoints/
+
+# MAC
+
+.DS_Store
+
+# LOG / TEMP
+
+*.log
+*.tmp
+*.temp
