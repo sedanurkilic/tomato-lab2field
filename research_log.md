@@ -2,7 +2,7 @@
 
 ## Tez İçin Biriken Ana Bulgular
 
-- [ ] Lab-to-field gap
+- [x] Lab-to-field gap
 - [ ] Frozen DINOv2 vs EfficientNet
 - [ ] RAW vs LEAF
 - [ ] GAP vs Single-Query Attention
@@ -71,3 +71,23 @@ Tam envanter PV 16.011 / PD 746; primary kapsam PV 8.132 / PD 605 görüntüdür
 PlantDoc bölünmedi; primary görüntüler `external_target_test` olarak işaretlendi. Bacterial spot/Septoria label-conflict duplicate grubunun iki görüntüsü yalnızca primary target evaluation'dan dışlandı, etiket düzeltilmedi ve dosya silinmedi. Final target evaluation 603 görüntüdür (bacterial spot 109, early blight 88, late blight 111, leaf mold 91, Septoria 150, mosaic virus 54).
 
 Yeni `manifests/primary_split_manifest.csv` tam 16.757 satırı korur; kapsam dışı ve dışlanan görüntüler `primary_included=False` ve `exclusion_reason` ile belirtilir, split alanları boştur. İlk audit görüntü manifestleri değiştirilmedi. Sınıf bazlı sayımlar `manifests/primary_class_split_counts.csv`, doğrulama özeti `manifests/primary_split_summary.json` içindedir. Yeniden üretim scripti `scripts/create_primary_splits.py` yalnızca metadata yazar. PV duplicate_group_id ve SHA-256 düzeyinde split leakage olmadığı, PV/PD arasında exact duplicate olmadığı, iki conflict görüntüsünün evaluation'a alınmadığı ve yeniden çalıştırmanın aynı dosya içeriklerini ürettiği doğrulandı. Model eğitilmedi; yeni `.md` raporu oluşturulmadı.
+
+### EfficientNet-B0 RAW baseline — deney başlangıcı, 2026-10-06
+
+Kullanıcı talimatıyla ilk gerçek deney başlatıldı. Sabit config: 224 input, deterministic eval resize 256 + center crop, ImageNet normalization; train RandomResizedCrop(scale 0.8–1.0) ve horizontal flip 0.5. AdamW lr=0.0001, weight_decay=0.0001, batch=32, max_epochs=30, patience=5; scheduler yok. Seed 42/0/1 aynı splitleri kullanır. Altı sınıf, split ayrıklığı, duplicate leakage ve 603 target kontrolü geçti. Sandbox dışında MPS erişimi doğrulandı ve torchvision ImageNet ağırlıkları indirildi. Checkpoint yalnızca PV validation Macro-F1 ile seçilecek; PlantDoc final değerlendirme dışında kullanılmayacak. Henüz sonuç yoktur; tez bulgusu ileri sürülmedi.
+
+### EfficientNet-B0 RAW baseline — 2026-10-06
+
+Aynı dondurulmuş splitlerle seed 42, 0, 1 çalıştırıldı. Config: `configs/efficientnet_b0_raw.json`; checkpoint seçimi yalnızca PV validation Macro-F1 ile yapıldı.
+
+- Seed 42: source Macro-F1 0.9962, target Macro-F1 0.1790, delta 0.8172.
+- Seed 0: source Macro-F1 0.9956, target Macro-F1 0.2407, delta 0.7550.
+- Seed 1: source Macro-F1 0.9957, target Macro-F1 0.2772, delta 0.7185.
+
+Üç seed Macro-F1 ortalaması ± örnek std: PV test **0.99586 ± 0.00032**, PlantDoc **0.23231 ± 0.04961**; delta **0.76355 ± 0.04990**. Bu RAW baseline, mevcut benchmarkta belirgin lab-to-field performans düşüşü gösterdi; nedenine ilişkin nedensellik iddiası yoktur. Tüm metriklerin mean/std değerleri `results/efficientnet_b0_raw/summary.json` ve `summary.csv` içindedir.
+
+PlantDoc ortalama recall: Bacterial spot **%1.83**, Early blight **%55.30**, Late blight **%82.58**, Leaf Mold **%2.20**, Septoria **%36.89**, mosaic virus **%4.94**. En zayıf sınıf Bacterial spot, en güçlü sınıf Late blight. Confusion matrixler düşük recall sınıflarının çoğunlukla Early/Late blight olarak tahmin edildiğini gösteriyor. En iyi epochlar seed 42/0/1 için 11/19/12; eğitimler 16/24/17 epochta erken durdu.
+
+Delta tanımlayıcı alan kaymasıdır, nedensellik iddiası değildir. Sıradaki adım bu baseline sonuçlarını incelemektir; başka deney başlatılmadı.
+
+Üç checkpoint, validation seçim kriteri, her seed için 1219 source test ve 603 target tahmin satırı, tahminlerden yeniden hesaplanan metrikler ve split manifest hashinin değişmediği doğrulandı. Çalıştırma hatası veya gözlenen runtime uyarısı yok; MPS için determinism mümkün olduğu ölçüde, warn_only modunda uygulandı. Config, kod ve sürüm bilgileri sonuç metadata’sında kayıtlıdır.
