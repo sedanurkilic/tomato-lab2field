@@ -91,3 +91,33 @@ PlantDoc ortalama recall: Bacterial spot **%1.83**, Early blight **%55.30**, Lat
 Delta tanımlayıcı alan kaymasıdır, nedensellik iddiası değildir. Sıradaki adım bu baseline sonuçlarını incelemektir; başka deney başlatılmadı.
 
 Üç checkpoint, validation seçim kriteri, her seed için 1219 source test ve 603 target tahmin satırı, tahminlerden yeniden hesaplanan metrikler ve split manifest hashinin değişmediği doğrulandı. Çalıştırma hatası veya gözlenen runtime uyarısı yok; MPS için determinism mümkün olduğu ölçüde, warn_only modunda uygulandı. Config, kod ve sürüm bilgileri sonuç metadata’sında kayıtlıdır.
+
+### DINOv2 RAW baseline — 2026-10-06
+
+#### Bugün ne yaptık?
+
+Frozen DINOv2 ViT-B/14 backbone ile 6 sınıflık primary benchmark üzerinde RAW baseline çalışması tamamlandı. Backbone tamamen frozen kaldı; CLS ve GAP temsilleri üzerinde ayrı `Linear(768 -> 6)` probe'lar seeds 42, 0, 1 ile eğitildi. Bu kayıt kullanıcı tarafından sağlanan gerçek deney sonuçlarını belgelemek için eklendi; bu günlük güncellemesinde yeni eğitim çalıştırılmadı.
+
+#### Ne öğrendik?
+
+Üç seed için bildirilen mean ± std sonuçları:
+
+| RAW baseline | PV test Macro-F1 | PlantDoc Macro-F1 | ΔMacro-F1 |
+|---|---|---|---|
+| EfficientNet-B0 | 0.99586 ± 0.00032 | 0.23231 ± 0.04961 | 0.76355 ± 0.04990 |
+| DINOv2 CLS | 0.97885 ± 0.00187 | 0.29315 ± 0.02131 | 0.68570 ± 0.01944 |
+| DINOv2 GAP | 0.97825 ± 0.00727 | 0.24874 ± 0.00378 | 0.72951 ± 0.01096 |
+
+CLS, PlantDoc Macro-F1 ortalamasında EfficientNet'e göre yaklaşık **+6.1 yüzde puan** (6.084), GAP'e göre yaklaşık **+4.4 yüzde puan** (4.441) daha yüksek. DINOv2'nin iki probe'u da EfficientNet'ten daha düşük source-domain Macro-F1'e rağmen daha yüksek target-domain Macro-F1 gösterdi; GAP'in EfficientNet'e göre target farkı yaklaşık +1.6 yüzde puandır.
+
+#### Tez için olası bulgular
+
+Bu benchmarkta yüksek source-domain performansı daha yüksek target-domain performansıyla birlikte gitmedi. Frozen DINOv2 CLS, karşılaştırılan üç RAW baseline arasında en yüksek ortalama PlantDoc Macro-F1 ve en küçük ortalama lab-to-field gap gösterdi; ancak CLS'de bile ΔMacro-F1 0.68570 olduğundan ciddi transfer kaybı devam ediyor. Bu sonuçlar deneysel gözlemdir; nedensel açıklama veya istatistiksel anlamlılık iddiası değildir.
+
+#### Teknik notlar
+
+Checkpoint seçimi yalnız PlantVillage validation Macro-F1'e göre yapıldı. PlantDoc yalnız external target evaluation için kullanıldı. ΔMacro-F1, PV source test Macro-F1 eksi PlantDoc Macro-F1 olarak raporlandı. Backbone güncellenmedi; öğrenilen bileşen yalnızca linear probe'dur. Verilen aggregate sonuçlar kaydedildi; bu güncellemede seed bazlı dosyalar yeniden doğrulanmadı.
+
+#### Sıradaki adım
+
+Mevcut CLS/GAP tahminleri üzerinden sınıf bazlı recall ve hata örüntülerini inceleyerek farkın hangi sınıflarda oluştuğunu belgelemek; yöntem veya checkpoint seçimini PlantDoc sonuçlarına göre değiştirmemek. Bu kayıt sırasında başka deney başlatılmadı.
