@@ -1,0 +1,11 @@
+{
+  "backbone": "Frozen DINOv2 ViT-B/14",
+  "probe": "Linear(768 -> 6)",
+  "optimizer": "AdamW",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "max_epochs": 50,
+  "patience": 5,
+  "batch_size": 256,
+  "selection_metric": "PlantVillage validation Macro-F1"
+}
