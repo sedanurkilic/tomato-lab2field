@@ -159,3 +159,71 @@ PCA bulgusu, Single-Query Attention deneyini motive eden diagnostik bir gözlemd
 #### Sıradaki adım
 
 PCA diagnostik gözlemini motivasyon olarak kullanarak Single-Query Attention deneyini tasarlamak. Yöntem veya checkpoint seçimi PlantDoc sonuçlarına göre değiştirilmeyecek; PlantDoc yalnızca final external target değerlendirmesinde kullanılacak.
+
+### Single-Query Attention baseline — 2026-10-14
+
+#### Bugün ne yaptık?
+
+Cached frozen DINOv2 patch tokenları üzerinde Single-Query Attention baseline'ı seeds 42, 0, 1 ile çalıştırıldı. Amaç, GAP'teki eşit ağırlıklı patch ortalaması yerine tek learnable query ile öğrenilmiş, düzgün olmayan (non-uniform) spatial ağırlıklandırmanın etkisini izole etmekti. Bu deney, PCA diagnostik gözleminden motive edilmiştir.
+
+Protokol:
+- Frozen DINOv2 patch tokenları kullanıldı; patch tensor shape `[8735, 256, 768]`. DINOv2 backbone yeniden eğitilmedi.
+- Tek trainable query `[768]`, sıfır initialize edildi. Başlangıç aggregation'ı tam uniform 1/256, yani GAP-equivalent pooling.
+- Final classifier `Linear(768 -> 6)`. Toplam trainable parametre: 5382.
+- AdamW, learning rate 1e-3, weight decay 1e-4; batch size 64, max epoch 50, early stopping patience 5.
+- Model seçimi yalnız PlantVillage validation Macro-F1 ile yapıldı. PlantDoc yalnız final external target evaluation'da kullanıldı.
+- Patch cache `mmap=True` ile batch bazında okundu.
+
+#### Ne öğrendik?
+
+Seed bazlı sonuçlar:
+
+| Seed | Best epoch | PV Macro-F1 | PlantDoc Macro-F1 | ΔMacro-F1 |
+|---|---|---|---|---|
+| 42 | 24 | 0.98805 | 0.31100 | 0.67705 |
+| 0 | 24 | 0.98814 | 0.29533 | 0.69281 |
+| 1 | 19 | 0.99133 | 0.29070 | 0.70063 |
+
+3-seed mean ± örnek std:
+
+| Metrik | PV test | PlantDoc |
+|---|---|---|
+| Macro-F1 | 0.98917 ± 0.00187 | 0.29901 ± 0.01064 |
+| Balanced accuracy | 0.98698 ± 0.00205 | 0.35961 ± 0.00839 |
+| Accuracy | 0.99152 ± 0.00095 | 0.41183 ± 0.00957 |
+
+ΔMacro-F1: 0.69016 ± 0.01201.
+
+PlantDoc Macro-F1 baseline karşılaştırması:
+
+| Model | PlantDoc Macro-F1 |
+|---|---|
+| DINOv2 GAP | 0.24874 ± 0.00378 |
+| DINOv2 CLS | 0.29315 ± 0.02131 |
+| Single-Query Attention | 0.29901 ± 0.01064 |
+
+PlantDoc Single-Query mean per-class recall: Bacterial spot 0.0612, Early blight 0.4242, Late blight 0.9640, Leaf Mold 0.1209, Septoria leaf spot 0.5689, Tomato mosaic virus 0.0185.
+
+#### Tez için olası bulgular
+
+- Single-Query, GAP'e göre yaklaşık +5.03 yüzde puan daha yüksek PlantDoc Macro-F1 verdi. Başlangıçta GAP-equivalent olan modelde tek query'nin öğrenilmesiyle bu fark oluştu.
+- CLS'ye göre üç-seed ortalama fark yalnızca yaklaşık +0.59 yüzde puan. Bu nedenle Single-Query CLS'den üstün değildir; CLS ile karşılaştırılabilir field performansı verdi ve GAP'i belirgin biçimde geçti.
+- Seed bazında (aynı seed numaralı CLS değerleriyle) Single-Query seed 42 ve 0'da çok az daha düşük (0.31100 vs 0.31209; 0.29533 vs 0.29729), seed 1'de daha yüksek (0.29070 vs 0.27008). CLS'ye karşı tutarlı bir seed davranışı yok.
+- Single-Query'nin PV Macro-F1'i CLS'den yüksek (0.98917 vs 0.97885), ancak field kazancı aynı ölçüde artmadı. Source iyileşmesi ile field robustness birebir aynı şey değildir.
+- ΔMacro-F1 0.69016 ile büyük lab-to-field kaybı sürüyor.
+- PlantDoc başarısı sınıflar arasında çok dengesiz: Late blight güçlü (0.9640), Bacterial spot (0.0612) ve Tomato mosaic virus (0.0185) çok zayıf.
+
+Bu bulgular deneysel gözlemlerdir; istatistiksel anlamlılık veya nedensel açıklama iddiası yoktur.
+
+#### Teknik notlar
+
+- Preflight (tek batch): query forward öncesi tam sıfır, ilk forward'da attention min/max 1/256, attention toplamları 1, query gradient normu > 0, trainable parametre sayısı 5382, tüm patch tensörün RAM/GPU kopyası oluşmadı.
+- Her seed için attention weight dosyaları başarıyla kaydedildi: PV test `[1219, 256]`, PlantDoc `[603, 256]` (image_id ve metadata satır indeksleriyle). İleride spatial-focus analizinde kullanılacak; bu aşamada modelin neye baktığına dair yorum yapılmadı.
+- Çalışma MPS üzerinde yaklaşık 870 s sürdü (3 seed). Çalıştırma hatası yok.
+- Karşılaştırılan CLS/GAP değerleri `docs/experiment_results/dinov2_raw/seed_results.csv` ile uyumludur.
+- Checkpoint, prediction ve attention dosyaları `results/single_query_attention/` altında kalır (gitignore'da); yalnızca `seed_results.csv` ve `summary.json` `docs/experiment_results/single_query_attention/` altına değiştirilmeden arşivlendi.
+- Script: `scripts/run_single_query_attention.py` (değiştirilmedi).
+
+#### Sıradaki adım
+
+Single-Query bulgusunu temel alarak Multi-Agent Attention deney tasarımının belirlenmesi.
