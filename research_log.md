@@ -121,3 +121,41 @@ Checkpoint seçimi yalnız PlantVillage validation Macro-F1'e göre yapıldı. P
 #### Sıradaki adım
 
 Mevcut CLS/GAP tahminleri üzerinden sınıf bazlı recall ve hata örüntülerini inceleyerek farkın hangi sınıflarda oluştuğunu belgelemek; yöntem veya checkpoint seçimini PlantDoc sonuçlarına göre değiştirmemek. Bu kayıt sırasında başka deney başlatılmadı.
+
+### DINOv2 PCA diagnostik analizi — 2026-10-14
+
+#### Bugün ne yaptık?
+
+Cached frozen DINOv2 CLS ve GAP feature'ları (her görüntü için 768 boyut) üzerinde sade bir PCA diagnostik analizi yapıldı. CLS ve GAP için ayrı `PCA(n_components=2)` kullanıldı. PCA yalnızca PlantVillage train (n=5692) üzerinde fit edildi; PlantVillage validation fit'e dahil edilmedi. PlantVillage test (n=1219) ve PlantDoc external target test (n=603) aynı source-fitted PCA uzayına yalnızca transform edildi. Her representation için renk = sınıf, işaret = domain (PV test `o`, PlantDoc `x`) olan birer scatter figürü üretildi (`docs/figures/dinov2_pca/`, script: `scripts/analyze_dinov2_pca.py`). Yeni model eğitilmedi.
+
+#### Ne öğrendik?
+
+Source-fitted PCA'da açıklanan varyans:
+
+| Representation | PC1 | PC2 | PC1+PC2 |
+|---|---|---|---|
+| CLS | 13.0% | 8.1% | 21.1% |
+| GAP | 16.2% | 7.1% | 23.3% |
+
+Nitel (görsel) gözlemler:
+- GAP PCA'da PlantVillage ve PlantDoc örnekleri, özellikle PC1 boyunca, CLS'ye göre daha belirgin bir domain ayrımı gösteriyor.
+- CLS PCA'da source ve target örnekleri daha fazla örtüşüyor.
+- Sınıflar ilk iki PCA boyutunda temiz biçimde ayrışmıyor.
+
+Bu nitel gözlem, mevcut field sonuçlarıyla uyumlu: PlantDoc Macro-F1 CLS 0.29315 ± 0.02131, GAP 0.24874 ± 0.00378. Bu bir uyum gözlemidir; nedensel açıklama veya istatistiksel test değildir.
+
+#### Tez için olası bulgular
+
+PCA bulgusu, Single-Query Attention deneyini motive eden diagnostik bir gözlemdir; tek başına bir sonuç değildir. Sınıfların ilk iki bileşende ayrışmaması, DINOv2'nin sınıfları ayıramadığı anlamına gelmez: iki bileşen CLS için yalnızca %21.1, GAP için %23.3 toplam varyansı gösteriyor ve linear probe 768 boyutun tamamını kullanıyor (PV test Macro-F1 ≈ 0.98). Bu analizden "background shortcut kanıtlandı" ya da "CLS domain invariant" gibi sonuçlar çıkarılmamalıdır.
+
+#### Teknik notlar
+
+- Fit seti: `dataset == "plantvillage"` ve `split == "train"`; transform edilen setler: `split == "test"` ve `split == "external_target_test"`. Validation hiçbir aşamada kullanılmadı.
+- Çalıştırma öncesi shape (8735×768) ve split sayıları (5692/1221/1219/603, 6 sınıf) assert ile doğrulandı.
+- Renk paleti matplotlib `tab10`; sınıf renkleri iki figürde aynı. Renk körlüğü doğrulaması yapılmadı.
+- Gözlemler iki 2B projeksiyonun görsel incelemesine dayanır; domain ayrımı için nicel bir ölçü hesaplanmadı.
+- Feature dosyaları (`artifacts/`) gitignore'da ve değiştirilmedi.
+
+#### Sıradaki adım
+
+PCA diagnostik gözlemini motivasyon olarak kullanarak Single-Query Attention deneyini tasarlamak. Yöntem veya checkpoint seçimi PlantDoc sonuçlarına göre değiştirilmeyecek; PlantDoc yalnızca final external target değerlendirmesinde kullanılacak.
