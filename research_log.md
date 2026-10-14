@@ -227,3 +227,85 @@ Bu bulgular deneysel gözlemlerdir; istatistiksel anlamlılık veya nedensel aç
 #### Sıradaki adım
 
 Single-Query bulgusunu temel alarak Multi-Agent Attention deney tasarımının belirlenmesi.
+
+
+### Multi-Agent Attention baseline ve agent-collapse diagnostiği — 2026-10-14
+
+#### Bugün ne yaptık?
+
+Single-Query Attention baseline'ı yalnızca query sayısı artırılarak genişletildi: cached frozen DINOv2 patch tokenları üzerinde 4 learnable query ile Multi-Agent Attention (N=4) seeds 42, 0, 1 ile çalıştırıldı. Ardından üç seed'in PlantVillage test attention weights'i üzerinde post-hoc agent-collapse diagnostiği yapıldı. Diagnostik yalnız PlantVillage test üzerinde yapıldı; PlantDoc attention kullanılmadı. Bu kayıt sırasında yeni deney çalıştırılmadı.
+
+Deney protokolü:
+- Frozen DINOv2 patch tokenları `[8735, 256, 768]`; backbone eğitilmedi.
+- 4 learnable query `[4, 768]`, init Normal(0, 0.02).
+- Attention scores `[B, 4, 256]`, softmax yalnız patch boyutunda.
+- Her agent için pooled representation `[B, 4, 768]`.
+- Agent çıktıları concatenate edilmedi; `mean(dim=1)` ile `[B, 768]` representation üretildi.
+- Classifier `Linear(768 -> 6)`; toplam trainable parametre 7686.
+- Seeds [42, 0, 1]; AdamW, lr 1e-3, weight decay 1e-4; batch size 64; max epoch 50; patience 5.
+- Model seçimi yalnız PlantVillage validation Macro-F1 ile yapıldı. PlantDoc yalnız final external evaluation'da kullanıldı.
+- Patch cache `mmap=True` ile okundu.
+
+#### Ne öğrendik?
+
+Seed bazlı sonuçlar:
+
+| Seed | Best epoch | PV Macro-F1 | PlantDoc Macro-F1 | ΔMacro-F1 |
+|---|---|---|---|---|
+| 42 | 19 | 0.99007 | 0.33623 | 0.65384 |
+| 0 | 21 | 0.99007 | 0.30200 | 0.68807 |
+| 1 | 35 | 0.99180 | 0.29821 | 0.69359 |
+
+3-seed mean ± örnek std:
+
+| Metrik | PV test | PlantDoc |
+|---|---|---|
+| Macro-F1 | 0.99065 ± 0.00100 | 0.31215 ± 0.02095 |
+| Balanced accuracy | 0.98854 ± 0.00128 | 0.36409 ± 0.01959 |
+| Accuracy | 0.99316 ± 0.00095 | 0.40962 ± 0.02231 |
+
+ΔMacro-F1: 0.67850 ± 0.02154.
+
+PlantDoc Macro-F1 baseline karşılaştırması:
+
+| Model | PlantDoc Macro-F1 |
+|---|---|
+| DINOv2 GAP | 0.24874 ± 0.00378 |
+| DINOv2 CLS | 0.29315 ± 0.02131 |
+| Single-Query Attention | 0.29901 ± 0.01064 |
+| Multi-Agent Attention (N=4) | 0.31215 ± 0.02095 |
+
+PlantDoc mean per-class recall: Bacterial spot 0.1223, Early blight 0.4621, Late blight 0.9550, Leaf Mold 0.1355, Septoria leaf spot 0.4911, Tomato mosaic virus 0.0185.
+
+Agent-collapse diagnostiği (PlantVillage test, attention shape her seed için `[1219, 4, 256]`; 1219 görüntü × 6 agent çifti; üç seed birleşik):
+- Pairwise Total Variation: 0.35612 ± 0.22081.
+- Pairwise centered cosine (uniform 1/256 çıkarıldıktan sonra): 0.61815 ± 0.37656.
+- Normalized attention entropy: 0.85749 ± 0.08302.
+- Agent (0,3) çifti üç seed'de de neredeyse aynı attention pattern'ını öğrendi: TV yaklaşık 0.013–0.016, centered cosine yaklaşık 0.999.
+- Diğer bazı agent çiftleri belirgin biçimde farklı spatial weighting pattern'leri öğrendi (ör. (0,2) ve (2,3) çiftlerinde TV yaklaşık 0.48–0.70).
+- Sanity check'ler: attention toplamları patch boyutunda yaklaşık 1, NaN/Inf yok, hiçbir agent çifti test setinde birebir (`torch.equal`) aynı değil.
+
+#### Tez için olası bulgular
+
+- Multi-Agent, şimdiye kadar karşılaştırılan modeller arasında en yüksek ortalama PlantDoc Macro-F1'i verdi: GAP'e göre yaklaşık +6.34, CLS'ye göre yaklaşık +1.90, Single-Query'ye göre yaklaşık +1.31 yüzde puan.
+- Aynı seed'lerde Multi-Agent, Single-Query'den daha yüksek PlantDoc Macro-F1 verdi: seed 42 +0.02523, seed 0 +0.00667, seed 1 +0.00751.
+- Yalnız üç seed olduğu ve std değerleri görece yüksek olduğu için (CLS ve Single-Query farkları std aralığında) istatistiksel üstünlük iddiası yoktur.
+- Single-Query ile Multi-Agent arasında query sayısının yanında initialization da değişti (sıfır init vs Normal(0, 0.02)); Single-Query başlangıçta tam uniform (GAP-equivalent), Multi-Agent hafifçe non-uniform başladı. Bu nedenle performans farkı yalnızca "dört query etkisi" olarak yorumlanamaz.
+- ΔMacro-F1 0.67850 ile büyük lab-to-field kaybı sürüyor.
+- PlantDoc başarısı sınıflar arasında hâlâ ciddi biçimde dengesiz: Late blight güçlü (0.9550), Tomato mosaic virus (0.0185), Bacterial spot (0.1223) ve Leaf Mold (0.1355) çok zayıf.
+- Diagnostik, (0,3) çiftinde partial agent redundancy / partial collapse gösteriyor; dört agent'ın tamamı collapse etmedi. Diğer çiftler farklı spatial weighting pattern'leri öğrendi. Kesin bir bağımsız pattern sayısı iddia edilmez.
+- Normalized entropy genel olarak yüksek kaldığından attention hâlâ görece diffuse. Bu diagnostik agent'ların lesion bölgelerini bulduğunu göstermez; spatial içerik (foreground/background) analizi yapılmadı.
+
+Bu bulgular deneysel gözlemlerdir; istatistiksel anlamlılık veya nedensel açıklama iddiası yoktur.
+
+#### Teknik notlar
+
+- Script: `scripts/run_multi_agent_attention.py` (preflight ve eğitim sırasında değiştirilmedi). Tek batch preflight'ta query'ler birbirinden farklı, gradient'ler sıfırdan büyük ve birbirine çok yakın, trainable parametre 7686 olarak doğrulandı.
+- Çalışma MPS üzerinde yaklaşık 14 dk 20 sn sürdü (3 seed). Çalıştırma hatası yok.
+- Seed 42 ve 0'ın PV test metrikleri 5 hane aynı (farklı epoch'larda seçilmiş checkpoint'ler, validation Macro-F1 değerleri farklı).
+- Attention dosyaları her seed için PV test `[1219, 4, 256]` ve PlantDoc `[603, 4, 256]` olarak kaydedildi (`image_id` ve metadata satır indeksleriyle). Agent-collapse diagnostiği yalnız PV test dosyaları üzerinde, scratchpad'de tek seferlik kodla çalıştırıldı; diagnostik için ayrı dosya oluşturulmadı, sonuçlar yalnızca bu günlükte tutulur.
+- Checkpoint, prediction ve attention dosyaları `results/multi_agent_attention/` altında kalır (gitignore'da); yalnızca `seed_results.csv` ve `summary.json` `docs/experiment_results/multi_agent_attention/` altına içerikleri değiştirilmeden kopyalandı.
+
+#### Sıradaki adım
+
+Spatial-attention branch is considered sufficiently characterized at this stage. Kernel-Guided Attention will not be pursued in the current scope. The next methodological direction is semantic disease-morphology guidance using externally grounded pathology descriptions and frozen visual representations.

@@ -1,0 +1,60 @@
+{
+  "config": {
+    "backbone": "Frozen DINOv2 ViT-B/14 (cached patch tokens)",
+    "aggregation": "4 learnable queries (Normal(0, 0.02)), per-agent softmax over patches, mean over agents",
+    "num_agents": 4,
+    "classifier": "Linear(768 -> 6)",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "loss": "CrossEntropyLoss",
+    "batch_size": 64,
+    "eval_batch_size": 256,
+    "max_epochs": 50,
+    "patience": 5,
+    "selection_metric": "PlantVillage validation Macro-F1",
+    "seeds": [
+      42,
+      0,
+      1
+    ]
+  },
+  "n_seeds": 3,
+  "trainable_parameters": 7686,
+  "pv_test_macro_f1": {
+    "mean": 0.9906471124434403,
+    "std": 0.0009979821772302193
+  },
+  "pv_test_balanced_accuracy": {
+    "mean": 0.9885412735412734,
+    "std": 0.0012830005981992406
+  },
+  "pv_test_accuracy": {
+    "mean": 0.9931637954607601,
+    "std": 0.0009472522874317408
+  },
+  "plantdoc_macro_f1": {
+    "mean": 0.31214748364352146,
+    "std": 0.020945610702103854
+  },
+  "plantdoc_balanced_accuracy": {
+    "mean": 0.36409351520972316,
+    "std": 0.019592062921126925
+  },
+  "plantdoc_accuracy": {
+    "mean": 0.4096185737976783,
+    "std": 0.022311150990172005
+  },
+  "delta_macro_f1": {
+    "mean": 0.6784996287999188,
+    "std": 0.021536133752099958
+  },
+  "plantdoc_per_class_recall_mean": {
+    "Tomato___Bacterial_spot": 0.12232415902140674,
+    "Tomato___Early_blight": 0.4621212121212121,
+    "Tomato___Late_blight": 0.954954954954955,
+    "Tomato___Leaf_Mold": 0.13553113553113552,
+    "Tomato___Septoria_leaf_spot": 0.4911111111111111,
+    "Tomato___Tomato_mosaic_virus": 0.018518518518518517
+  }
+}
