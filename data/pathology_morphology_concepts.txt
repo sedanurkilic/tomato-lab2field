@@ -1,0 +1,41 @@
+[small_dark_spots]
+Small dark brown to black spots on the leaf.
+
+[circular_spots]
+Small circular spots on the leaf.
+
+[dark_borders]
+Dark borders around leaf spots.
+
+[lighter_gray_centers]
+Lighter or gray centers within leaf spots.
+
+[surrounding_yellowing]
+Yellowing around leaf spots or lesions.
+
+[concentric_ring_pattern]
+Concentric ring-like or target-like patterns within leaf lesions.
+
+[large_irregular_blotches]
+Large irregular dark brown blotches on the leaf.
+
+[water_soaked_appearance]
+A water-soaked appearance of leaf lesions.
+
+[yellowish_patches]
+Yellowish patches on the leaf.
+
+[olive_brown_surface_growth]
+Olive-brown growth on the leaf surface.
+
+[mosaic_mottled_green_pattern]
+Light and dark green mosaic or mottled coloration on the leaf.
+
+[leaf_curling]
+Curling of the leaf.
+
+[leaf_narrowing]
+Narrowing of the leaf.
+
+[leaf_deformation]
+Deformation of the leaf.

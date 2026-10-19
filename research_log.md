@@ -309,3 +309,60 @@ Bu bulgular deneysel gözlemlerdir; istatistiksel anlamlılık veya nedensel aç
 #### Sıradaki adım
 
 Spatial-attention branch is considered sufficiently characterized at this stage. Kernel-Guided Attention will not be pursued in the current scope. The next methodological direction is semantic disease-morphology guidance using externally grounded pathology descriptions and frozen visual representations.
+
+### 2026-10-19 — Frozen pathology text prototypes
+
+- `data/pathology_morphology_prompts.txt` frozen as the sole source of morphology text; contents unchanged, exactly 3 sentences per class for 6 classes in the expected source order. Source SHA-256 is stored in the artifact.
+- Encoder: Hugging Face `google/siglip-base-patch16-224`, pinned revision `7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed`; fully frozen, `eval()`, `torch.inference_mode()`, official `get_text_features` API. Each sentence encoded separately on CPU in float32 with deterministic algorithms and one thread; no truncation.
+- Construction: sentence-level L2 normalization → class-wise mean over 3 sentences → final L2 normalization.
+- Result: normalized sentence embeddings `[6, 3, 768]`; final prototypes `[6, 768]`, saved to `artifacts/pathology_text/pathology_text_prototypes_siglip.pt`. Final norms approximately 1 (maximum absolute deviation < 1e-6); NaN/Inf checks passed. Cosine similarities were diagnostic only and did not change source text or prototypes.
+- Artifact/source matching and mean/normalization reconstruction passed; repeated offline extraction produced bitwise identical sentence embeddings and prototypes. Parser rejection checks passed for wrong order, missing/extra classes or sentences, and text before a header.
+- No image data, PlantDoc metrics, DINO features/caches, or classification training used.
+- Environment: torch 2.9.0, transformers 4.57.1; missing sentencepiece 0.2.2 installed only in `/private/tmp/pathology_siglip_deps`; downloaded model cache in `/private/tmp/pathology_siglip_hf_cache`. For this environment, rerun with `PYTHONPATH=/private/tmp/pathology_siglip_deps python3 scripts/build_pathology_text_prototypes.py --cache-dir /private/tmp/pathology_siglip_hf_cache`.
+
+### 2026-10-19 — DINOv2 CLS → frozen pathology prototype classifier
+- Frozen cached DINOv2 CLS input `[8735, 768]`; frozen SigLIP pathology prototypes `[6, 768]`. Trainable `Linear(768 → 768, bias=False)` (589824 parameters), L2-normalized projection, cosine logits with fixed scale 10.0 and CrossEntropyLoss. Fixed pathology-derived text prototypes were used as the classifier output geometry; no morphology-learning or semantic-grounding claim.
+- Reused existing metadata row order, labels and splits (PV train 5692 / validation 1221 / test 1219; PlantDoc external test 603); no new splits, feature extraction, image reads or cache changes. PV-only training and validation Macro-F1 selection; PlantDoc evaluation only after restoring each seed’s selected checkpoint. No tuning against PlantDoc.
+- Optimization reused from `docs/experiment_results/dinov2_raw/probe_config.json` and `notebooks/dinov2_raw_baseline.ipynb`: AdamW, lr=1e-3, weight_decay=1e-4, batch_size=256, max_epochs=50, patience=5, seeds [42,0,1], strict improvement for selection; original CLS input used without added normalization. CPU execution (one thread), rather than the earlier Colab runtime; hardware is a comparability limitation. Best states held in memory; no checkpoint files.
+- Sanity checks passed: feature/prototype dimensions, prototype norms ≈1, exact prototype/metadata label mapping, NaN/Inf absence, split/dataset separation; first batch `[256,768]` → `[256,768]`, normalized norms ≈1, logits `[256,6]`, finite nonzero projection gradients; prototype buffer unchanged after training.
+
+| Seed | Best epoch | PV F1 / BA / accuracy | PlantDoc F1 / BA / accuracy | ΔF1 | Semantic − CLS PD F1 |
+|---|---|---|---|---|---|
+| 42 | 8 | 0.97648 / 0.97313 / 0.97703 | 0.27390 / 0.33337 / 0.36484 | 0.70258 | -0.03819 |
+| 0 | 20 | 0.98821 / 0.98840 / 0.98852 | 0.22646 / 0.29827 / 0.32670 | 0.76175 | -0.07084 |
+| 1 | 19 | 0.98124 / 0.97891 / 0.98277 | 0.23120 / 0.29798 / 0.32504 | 0.75004 | -0.03888 |
+
+Mean ± sample std (ddof=1):
+- pv_test_macro_f1: 0.98198 ± 0.00590.
+- pv_test_balanced_accuracy: 0.98015 ± 0.00771.
+- pv_test_accuracy: 0.98277 ± 0.00574.
+- plantdoc_macro_f1: 0.24385 ± 0.02613.
+- plantdoc_balanced_accuracy: 0.30987 ± 0.02035.
+- plantdoc_accuracy: 0.33886 ± 0.02252.
+- delta_macro_f1: 0.73812 ± 0.03133.
+- semantic_minus_cls_plantdoc_macro_f1: -0.04930 ± 0.01865.
+
+PlantDoc per-class recall (mean ± sample std):
+- Tomato___Bacterial_spot: 0.01835 ± 0.00917.
+- Tomato___Early_blight: 0.45455 ± 0.02273.
+- Tomato___Late_blight: 0.92192 ± 0.01040.
+- Tomato___Leaf_Mold: 0.11355 ± 0.06345.
+- Tomato___Septoria_leaf_spot: 0.32000 ± 0.05207.
+- Tomato___Tomato_mosaic_virus: 0.03086 ± 0.01069.
+
+- Ordinary CLS comparison source: `docs/experiment_results/dinov2_raw/seed_results.csv` (`representation=cls`), read rather than hard-coded. CLS PV Macro-F1 0.97885 ± 0.00187; PlantDoc Macro-F1 0.29315 ± 0.02131. The semantic classifier had lower PlantDoc Macro-F1 in all three seeds; this is descriptive, with no statistical significance or causal claim.
+- Results: `docs/experiment_results/pathology_semantic_prototype/seed_results.csv` and `summary.json`; the latter includes per-seed validation histories, input SHA-256 identities and configuration. No runtime errors; no commit or push.
+
+#### Final scientific interpretation (2026-10-19)
+
+The semantic prototype classifier retained high PV source performance (Macro-F1 0.98198 ± 0.00590), but PlantDoc Macro-F1 (0.24385 ± 0.02613) remained below the ordinary CLS baseline (0.29315 ± 0.02131). All three paired seeds gave worse PlantDoc F1 for the semantic model (differences −0.03819, −0.07084, −0.03888). In this tested configuration, class-level fixed pathology prototypes with an unrestricted learned projection did not provide improved field robustness. This does not imply that pathology knowledge is useless, and does not establish that other ways of using pathology concepts will succeed. Fixed pathology-derived text prototypes were used as the classifier output geometry; no semantic grounding or learned morphology is established. This is a descriptive result, without statistical significance or causal claims. Original results, prompts, scale=10.0, architecture and PV-only selection remain unchanged; finalization involved consistency checks only, without rerunning or optimizing the classifier.
+
+### 2026-10-19 — Source-grounded concept-level morphology bank
+
+- Following the lack of improved field robustness in the class-level experiment, the next stage shifts to reusable concept-level morphology representations. No new classifier or distillation training has been performed; improvement is not presumed.
+- `data/pathology_morphology_concepts.txt` is the sole source of concept descriptions: 14 short English descriptions of image-observable morphology derived only from `data/pathology_morphology_prompts.txt`. No disease names, diagnostic claims, new pathology information, web research, microscopic details or image data were used. Original disease texts were preserved.
+- `scripts/build_pathology_morphology_concepts.py` contains the fixed, manually source-grounded 3-state class mapping. `present` means explicitly supported morphology; `possible` preserves conditional wording; `not_supported` means not established by the text, not visual absence. Surface growth, water-soaked appearance, bacterial surrounding yellowing, curling, narrowing and deformation remain conditional. Exact supporting source sentences and their zero-based indices are saved for each mapped pair. Mapping is source annotation, not an image-level label or training target.
+- Frozen `google/siglip-base-patch16-224`, revision `7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed`; `eval()`, inference mode, official `get_text_features`, one description per embedding and L2 normalization. CPU float32, deterministic algorithms, one thread, seed 0, fixed-length padding, no truncation. Existing local model cache used offline.
+- Artifact: `artifacts/pathology_text/pathology_morphology_concepts_siglip.pt`; concept embeddings `[14, 768]`. Unit-norm checks passed (maximum deviation about 2.98e-7); no NaN/Inf. The 14×14 cosine matrix is diagnostic only; concept definitions and mapping were fixed before encoding and were not changed based on cosine values. Source SHA-256 hashes, class order, source evidence and model revision are included in the artifact.
+- No PlantDoc images, metrics or tuning informed the concept bank. Existing semantic result summaries were read only to finalize that previous experiment. No DINO cache access or change was needed for concept construction.
+- Reproduce in this environment: `HF_HUB_OFFLINE=1 PYTHONPATH=/private/tmp/pathology_siglip_deps python3 -B scripts/build_pathology_morphology_concepts.py --cache-dir /private/tmp/pathology_siglip_hf_cache`. `sentencepiece` and the model cache remain in temporary directories as previously recorded. Tensor artifacts remain excluded by the existing gitignore; source txt files, scripts and lightweight result summaries are reviewable for a future commit. No staging, commit or push performed.

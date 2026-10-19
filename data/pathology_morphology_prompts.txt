@@ -1,0 +1,29 @@
+[Tomato___Bacterial_spot]
+Numerous small dark brown to black spots on the leaf.
+Small dark leaf spots, sometimes with surrounding yellowing.
+Small dark spots that may enlarge or merge into affected areas.
+
+[Tomato___Early_blight]
+Brown necrotic leaf spots with visible concentric ring patterns.
+Brown leaf lesions with a target-like internal pattern and surrounding yellowing.
+Dark brown spots that may enlarge and show concentric rings.
+
+[Tomato___Late_blight]
+Large irregular dark brown leaf blotches.
+Broad irregular affected areas with dark discoloration.
+Irregular brown to dark leaf lesions that may have a water-soaked appearance.
+
+[Tomato___Leaf_Mold]
+Yellowish patches on the leaf with possible olive-brown surface growth.
+Pale yellow leaf areas associated with olive-colored fungal growth.
+Yellow leaf spots with olive-brown velvety growth that may be visible on the leaf surface.
+
+[Tomato___Septoria_leaf_spot]
+Numerous small circular leaf spots with lighter centers and dark borders.
+Many small round spots with grayish centers and darker margins.
+Small circular spots distributed across the leaf, often with pale centers and dark edges.
+
+[Tomato___Tomato_mosaic_virus]
+Light and dark green mosaic or mottled coloration across the leaf.
+Mosaic-like green color variation with possible curling or narrowing of the leaf.
+Mottled leaf coloration accompanied by visible curling or leaf deformation.
