@@ -1,0 +1,16 @@
+Describe only the visible appearance of the tomato leaf in this image.
+
+Focus on clearly observable visual features such as:
+- color changes,
+- spots, lesions, or blotches,
+- their approximate shape and visible internal pattern,
+- how they are distributed across the leaf,
+- visible leaf deformation or curling,
+- clearly visible surface texture or growth.
+
+Do not diagnose the disease.
+Do not name any disease or pathogen.
+Do not infer features that are not clearly visible.
+Do not mention the background, lighting, camera, image quality, or dataset.
+
+Return one short factual sentence in English, using at most 50 words.

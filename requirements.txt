@@ -2,3 +2,5 @@ torch==2.9.0
 torchvision==0.24.0
 numpy==2.2.4
 Pillow==11.1.0
+openai==3.35.1
+sentencepiece==0.2.2

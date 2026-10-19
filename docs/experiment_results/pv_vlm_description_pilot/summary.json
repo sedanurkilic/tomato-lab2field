@@ -1,0 +1,667 @@
+{
+  "prompt_source_path": "data/pv_vlm_description_prompt.txt",
+  "prompt_sha256": "df089ab118865ef94828717b6c4fda34bb258437ffa1a69f09ba39adc81366b7",
+  "provider": "OpenAI",
+  "model": "gpt-4.1-mini",
+  "model_version": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "sample_count": 30,
+  "seed": 42,
+  "per_class_count": {
+    "Tomato___Bacterial_spot": 5,
+    "Tomato___Early_blight": 5,
+    "Tomato___Late_blight": 5,
+    "Tomato___Leaf_Mold": 5,
+    "Tomato___Septoria_leaf_spot": 5,
+    "Tomato___Tomato_mosaic_virus": 5
+  },
+  "reused_count": 6,
+  "new_inference_completed_count": 24,
+  "completed_count": 30,
+  "validation_pass_count": 30,
+  "leakage_count": 0,
+  "word_limit_violation_count": 0,
+  "failure_count": 0,
+  "warnings": [
+    "Lexical leakage and sentence/language screening are conservative; manual review remains necessary."
+  ],
+  "details": [
+    {
+      "image_id": "pv_desc_001",
+      "source_image_id": "plantvillage_dbb90a160d7f3968c21668383fcabb390da7a6fdaf48adf96b4beb6ee29da5df",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows yellowing with irregular brown spots and blotches scattered mainly on the right side, with some curling and slight deformation along the edges.",
+      "response_id": "resp_0c3819a450edf5df016ad6650cc31887d29932451f3d6eef0b",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": [],
+      "reused": true
+    },
+    {
+      "image_id": "pv_desc_002",
+      "source_image_id": "plantvillage_29710f3fe410e509bf2cfcc302ffaf0139897f2384549ac6c38a4a498213eb2f",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with irregularly shaped brownish-black blotches scattered mainly along the central veins, showing slight curling and a rough, uneven surface texture.",
+      "response_id": "resp_02df7ff4f29f6667016ad6650f492887d2820b933c04396a82",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": [],
+      "reused": true
+    },
+    {
+      "image_id": "pv_desc_003",
+      "source_image_id": "plantvillage_07439ab762cf387c11e53ba7748b9341713c9aaa1b08df6eebc6ee184c020904",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is curled and partially folded with yellowish-brown discoloration concentrated mainly along the edges and upper surface, showing a rough texture and some small dark spots scattered irregularly.",
+      "response_id": "resp_039aded2c0061db2016ad665114ca087d28308d63fa89bb94a",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 30,
+      "leakage": false,
+      "errors": [],
+      "reused": true
+    },
+    {
+      "image_id": "pv_desc_004",
+      "source_image_id": "plantvillage_6f821f61e9f80cf5ffacbac5c9f394f8b891545d29b9e9372ef13479c9cb0cc4",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows yellowing between veins with irregular green patches, slight curling at the edges, and a somewhat rough surface texture.",
+      "response_id": "resp_0fe7a50e12757c99016ad665131da887d2aaf749a73aca0e77",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 22,
+      "leakage": false,
+      "errors": [],
+      "reused": true
+    },
+    {
+      "image_id": "pv_desc_005",
+      "source_image_id": "plantvillage_6a4a53f101a8cf58d343b3038a54fa030d303f9689bd9516deedaeb5510fda4e",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows multiple irregular dark brown to black spots with yellow halos, scattered across its surface, with slight curling at the edges and a generally rough texture.",
+      "response_id": "resp_0d48ceecbc92e0ad016ad66515032887d28fda7d9472991996",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 29,
+      "leakage": false,
+      "errors": [],
+      "reused": true
+    },
+    {
+      "image_id": "pv_desc_006",
+      "source_image_id": "plantvillage_77e0006e6a7d57de9e2df100071cd7419b619286bb67e6933e1536a86135ed43",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellow-green blotches mainly along the veins, with some curling and slight distortion of the leaf edges.",
+      "response_id": "resp_0ad562b4da8d5ee4016ad66516b54087d29926e30083074e28",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 21,
+      "leakage": false,
+      "errors": [],
+      "reused": true
+    },
+    {
+      "image_id": "pv_desc_007",
+      "source_image_id": "plantvillage_32b68667014034486d3b96e43bfa9492bda09494ec1eda80cca99f9ef132e9e4",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with scattered irregular brown and yellow spots, some with faint concentric rings, and shows slight curling and minor edge damage.",
+      "response_id": "resp_03c5ac1b29e776b0016ad66c17fc8087d29e3db961305a7e9a",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_008",
+      "source_image_id": "plantvillage_272eec0c1427568db255578643ade1ece9aacb9dbc47dc2757739ded63967556",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular brown and yellow blotches mainly along the edges, with some curling and a rough, dry texture on the affected areas.",
+      "response_id": "resp_067627467650eef7016ad66c19aaf487d2b5b60ba50e99918d",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 25,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_009",
+      "source_image_id": "plantvillage_ea141da60ac7b39a3be077d91fe2f962001cbae7ea3ae2332fbef5a5cc3c9055",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is yellowing with numerous small, irregular dark brown to black spots scattered across its surface, showing slight curling and a generally rough texture.",
+      "response_id": "resp_00aa1648815de071016ad66c1b0a7487d29e913f992f8d25a5",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_010",
+      "source_image_id": "plantvillage_bd1dd57b0a8c1d10a58e8d81bfb7d3e93d80913c5ae20f9ff2a92e02ea33c110",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellowish-brown spots and blotches scattered mainly near the edges, with some curling and slight deformation, and a rough, uneven surface texture.",
+      "response_id": "resp_0386821516178c65016ad66c1c8cf087d288ef44bf916cae50",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_011",
+      "source_image_id": "plantvillage_1d3a2045590d19c87d389a590019f348eb7f9e4dc98910db87eac7d69d1c1df1",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregularly shaped brown and dark spots scattered across its surface, with some areas appearing dry and curled, and the leaf texture looks rough and uneven.",
+      "response_id": "resp_0bd867e4833780ca016ad66c1e02ec87d2bb48a5c71a187729",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 29,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_012",
+      "source_image_id": "plantvillage_df738ba2699779d5976426e7ebe713ba35c451227cd5ab89d8aef43a5494a260",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is predominantly dark brown to black with irregularly shaped blotches, showing extensive curling and shriveling, and a rough, dry surface texture.",
+      "response_id": "resp_05c8e16c37431f34016ad66c1f40e087d2a3d43faf8a470cf9",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 24,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_013",
+      "source_image_id": "plantvillage_9f844b668d9a69f560042d9da1f2d7c188c2dc27190a0aa06b2253b7d462a7f0",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows dark brown to black irregular blotches mainly along the edges, with some yellowing near the affected areas, and slight curling at the tip, while the central part remains green with a slightly rough texture.",
+      "response_id": "resp_05297ef2dbf08164016ad66c20dc2487d2a90d4119f3bc5858",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 38,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_014",
+      "source_image_id": "plantvillage_09b4be6ad6eb00c595b58da32c62c6fb5a092719148cfdfcd48c68f7cd2bdb4a",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular dark brown to black spots and blotches scattered across its surface, with some areas exhibiting slight curling and rough texture.",
+      "response_id": "resp_088e9d41732ebf38016ad66c225e9c87d2af2de26e26cbaac3",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 25,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_015",
+      "source_image_id": "plantvillage_09d147edfdf46e551fa165f21714a6b134b6e80b048982b0d21f2951552f0c6d",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellowish-green blotches mainly on the upper lobes, with the lower lobe exhibiting darkened, shriveled, and curled areas.",
+      "response_id": "resp_08672ca6184bf9c3016ad66c23d27487d2981317d166f9f938",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 22,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_016",
+      "source_image_id": "plantvillage_21024c66af6f71e7caee4100eea13fe0be79b878830b923eb3bf8a27f1957931",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows a central, irregularly shaped brownish lesion with a slightly darker center, surrounded by a faint yellowish halo, while the rest of the leaf remains green with visible veins and no curling or surface texture changes.",
+      "response_id": "resp_08f0e934291b0a94016ad66c24ffd887d29fa13cc47e07119b",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 39,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_017",
+      "source_image_id": "plantvillage_55fb03e68080cd44b2c8bb3c34fb52a7242abd26a39474c13732e505728f129c",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows two irregularly shaped brown lesions with a dry, cracked texture, one near the top edge and another near the bottom center, while the rest of the leaf remains green with visible veins and slight curling at the edges.",
+      "response_id": "resp_0cecf264f4f1628f016ad66c263b7487d29ae5cf98dbced3e0",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 42,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_018",
+      "source_image_id": "plantvillage_5bd4ee4eab5bc18b884bcac04643aeb4d60bc56ab3ba1fa07fbf3fef50b9d5cb",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows extensive dark brown to black discoloration covering most of the upper half, with a dry, shriveled texture and slight curling, while the lower half remains green and smooth.",
+      "response_id": "resp_0eefcaca0a8db00f016ad66c2830b887d298878f61c31472ad",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 32,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_019",
+      "source_image_id": "plantvillage_c90f82c5de31c72bf33a12a1fafa573154dd266c7b196ba577935dbf9b064a12",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with irregular yellowish blotches scattered mainly along the veins, showing slight curling and a textured surface with visible veins.",
+      "response_id": "resp_0e5d3ef22fc062d4016ad66c29ec0c87d2aa1747ed2eacb945",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 25,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_020",
+      "source_image_id": "plantvillage_edfe7dc48f6204d8c89866bf22de5dbb26358df75dbf70d102d9a8b62ac176bd",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellowish blotches with a slightly raised, bumpy texture, mainly along the central and upper parts, while the rest of the leaf remains green and slightly curled at the edges.",
+      "response_id": "resp_028fbca4cc442470016ad66c2b36c087d29a9ca61b0aece412",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 34,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_021",
+      "source_image_id": "plantvillage_0ce7cbb57e9bd64cb2e1b644382411cfd67de3c99995cd604a7c2c2afe1640e4",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is green with a slightly lighter green area near the center, showing no visible spots, lesions, deformation, curling, or surface texture changes.",
+      "response_id": "resp_04c46563306cab6f016ad66c2c8af087d2a8b889e48e671bad",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 25,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_022",
+      "source_image_id": "plantvillage_dc091d5776d427459ab3d108eec5d3b7c2db6bf302db4ee0f998ad5fe4bc945a",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellowish-green blotches mainly along the veins, with some areas appearing slightly raised or textured, and the leaf edges are slightly curled.",
+      "response_id": "resp_078912145092f62d016ad66c2dcffc87d2938e695edbb80d14",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_023",
+      "source_image_id": "plantvillage_56506e450cb9ab6bd203f593b3d92797ad8962a817e8765d1c46d02a05b554f4",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with a single elongated, light brown lesion near the upper right area, showing a slightly irregular shape and a dry, cracked surface texture.",
+      "response_id": "resp_0602df0ab36e27f8016ad66c2f4b8487d2909f5adcbc1906aa",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 29,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_024",
+      "source_image_id": "plantvillage_e459094cb620a3a2909f4a010db273707ed0e490a28c4a3189d2e39ca32643b0",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with numerous small, irregularly shaped pale yellow spots scattered across its surface, showing slight curling at the edges and a rough texture.",
+      "response_id": "resp_00546a0b4ca9dcfc016ad66c306ef887d2ad5b2212788bb6c4",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 28,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_025",
+      "source_image_id": "plantvillage_b64536f15223a4a329c0a2d93872a5a868a3dd6a055d6b537bfb2a10889afe33",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is yellowing with numerous irregularly shaped dark brown to black spots scattered mainly on the upper half, some spots have a slightly raised texture, and the leaf edges appear slightly curled.",
+      "response_id": "resp_00020bbfdf5b183b016ad66c31fefc87d28527f318f8803a40",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 34,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_026",
+      "source_image_id": "plantvillage_5f8d7ec34cb09eab1031ad677c9d5b24b41fc30e3bf330bf65ed794502d6b56b",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellowish-green blotches with some brown spots, slight curling at the edges, and a rough texture with visible veins.",
+      "response_id": "resp_026be176aff35a09016ad66c337dcc87d2ac34461776c4cf75",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 23,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_027",
+      "source_image_id": "plantvillage_e65163f310de15e3061d3d972c975ddfd13aee029cfb7306155c77f54f52bddd",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows small, irregularly shaped yellowish spots scattered mainly along the veins, with slight curling and a generally rough texture.",
+      "response_id": "resp_0f2a9ab4d752f6a5016ad66c34c98087d29c30e25c2f54709f",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 22,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_028",
+      "source_image_id": "plantvillage_9b4413eed7a165bf98c7fd01667b3d4f1904267575ddd1d250625bed39d65942",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with a rough texture, showing slight curling along the edges and subtle, uneven surface bumps without distinct spots or lesions.",
+      "response_id": "resp_0175b3241f3fa50e016ad66c36ac2c87d291ca7b9165322fcf",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 26,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_029",
+      "source_image_id": "plantvillage_042e235fa194e3a4d766ab65c9419ba56bc7eff89f99dbd3cab2feb1aefe0c10",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf shows irregular yellow-green mottling primarily between veins, with slight curling and a textured surface.",
+      "response_id": "resp_0d8cf79e5f8f2573016ad66c3855a087d2b7e74ba38a7fa95b",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 17,
+      "leakage": false,
+      "errors": []
+    },
+    {
+      "image_id": "pv_desc_030",
+      "source_image_id": "plantvillage_4c4b2bb7769d86ae5a5afa2c85a9b7eee1a1b34449885f7bc532e75bd0047b29",
+      "original_resolution": [
+        256,
+        256
+      ],
+      "sent_resolution": [
+        256,
+        256
+      ],
+      "raw_response": "The tomato leaf is dark green with irregular, slightly raised, lighter green patches scattered mainly along the veins, showing mild curling and a somewhat rough surface texture.",
+      "response_id": "resp_0ccdcc365be3d159016ad66c3986f087d287c0e862ac4f5dd1",
+      "response_status": "completed",
+      "completed": true,
+      "model_version": "gpt-4.1-mini-2025-04-14",
+      "validation_pass": true,
+      "word_count": 27,
+      "leakage": false,
+      "errors": []
+    }
+  ]
+}
