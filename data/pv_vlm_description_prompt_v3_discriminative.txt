@@ -1,0 +1,46 @@
+Analyze only the visible morphology of the tomato leaf in this image.
+
+Describe clearly observable visual features in the requested structured fields.
+
+Pay particular attention to:
+- overall color pattern and discoloration,
+- spots, lesions, or blotches,
+- lesion size, number, and shape,
+- pale or gray centers,
+- dark borders or margins,
+- yellow halos,
+- concentric rings or target-like internal patterns,
+- distribution across the leaf,
+- mottling or mosaic-like color variation,
+- vein-associated patterns,
+- visible curling, narrowing, or deformation,
+- roughness, raised areas, velvety growth, or other surface changes.
+
+For features that cannot be confidently seen, use cautious wording such as "not clearly visible" rather than claiming biological absence.
+
+In the final discriminative summary, include only the most visually distinctive features that could help distinguish this leaf from other visibly diseased tomato leaves.
+
+Prioritize:
+- lesion or spot shape,
+- lesion center and border structure,
+- halo color,
+- internal lesion pattern,
+- mottling or mosaic-like pattern,
+- vein association,
+- spatial distribution,
+- distinctive visible surface growth.
+
+Avoid generic observations such as mild curling, general roughness, or nonspecific yellowing unless they are among the most distinctive visible features in the image.
+
+Keep each structured field concise.
+Use at most 1–2 short sentences per field.
+Avoid repeating the same observation across multiple fields.
+Prefer specific morphology over general descriptive wording.
+Keep the discriminative_summary within 35 words.
+
+Do not diagnose the disease.
+Do not name any disease or pathogen.
+Do not infer features that are not clearly visible.
+Do not mention the background, lighting, camera, image quality, or dataset.
+Use factual and concise language.
+Keep the combined descriptive text within 180 words.

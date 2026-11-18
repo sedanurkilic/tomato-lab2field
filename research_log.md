@@ -381,3 +381,310 @@ The semantic prototype classifier retained high PV source performance (Macro-F1 
 - Leave-one-out diagnostic: each query was excluded from its own class prototype (other 4 embeddings); other class prototypes used 5 embeddings each. Prediction was maximum cosine. Accuracy 0.30000 (9/30), Macro-F1 0.29209, balanced accuracy 0.30000. Per-class recall in frozen class order (Bacterial spot, Early blight, Late blight, Leaf Mold, Septoria, Tomato mosaic virus): [0.40, 0.40, 0.40, 0.20, 0.00, 0.40]. Confusion matrix (rows=true, columns=predicted, same order): [[2,0,0,1,2,0], [1,2,1,0,0,1], [0,2,2,1,0,0], [1,0,0,1,0,3], [3,0,1,1,0,0], [0,0,0,3,0,2]]. Query support counts and all cosine scores are retained in `embedding_summary.json`.
 - Interpretation: this balanced pilot shows weak but observable class-related structure: same-class cosine is slightly higher on average, while class separation remains limited and overlapping. LOO accuracy exceeds the nominal six-class chance accuracy (1/6 ≈ 0.1667) descriptively; no statistical significance claim is made. These results do not establish a strong disease classifier, validated morphology grounding, or external-field robustness. The pilot is insufficient evidence to justify full 5,692-image GPT annotation solely for nearest-prototype classification. The representation may instead be considered as a candidate auxiliary semantic signal for future distillation/alignment experiments; its utility is not established. Full 5,692-image annotation has not been performed.
 - Provenance: `scripts/run_pv_vlm_description_pilot.py`, `scripts/build_pv_vlm_description_embeddings.py`, `docs/experiment_results/pv_vlm_description_pilot/{descriptions.csv,summary.json,embedding_summary.json}` and `artifacts/pv_vlm_description/pv_vlm_description_embeddings_siglip.pt`. Generated tensor artifacts remain gitignored. `sentencepiece==0.2.2` is now declared for the SigLIP tokenizer; unrelated dependencies unchanged. Finalization used local consistency checks only: no new API calls, inference, embedding generation, training, tuning or PlantDoc access. No commit or push.
+
+- Structured morphology v2 prompt-development pilot: same 30 PV-train images as v1; strict six-string JSON schema, combined 150-word validation limit, cautious "not clearly visible" wording; {"model": "gpt-4.1-mini", "model_version": ["gpt-4.1-mini-2025-04-14"], "prompt_sha256": "4a5150a8b66d27b132a0be35816b9fcf15592531fb552538886312fbd770935c"}; frozen SigLIP google/siglip-base-patch16-224; diagnostics {"same_class": {"count": 60, "mean": 0.9684615979592005, "sample_std": 0.0145442147628839}, "different_class": {"count": 375, "mean": 0.9609444832801819, "sample_std": 0.01610043613046728}, "gap": 0.0075171146790186105, "loo": {"accuracy": 0.23333333333333334, "macro_f1": 0.20341880341880345, "balanced_accuracy": 0.2333333333333333}, "comparison": {"same_class_mean": {"v1": 0.9141676157712937, "v2": 0.9684615979592005, "absolute_difference_v2_minus_v1": 0.05429398218790682}, "different_class_mean": {"v1": 0.9004736320177714, "v2": 0.9609444832801819, "absolute_difference_v2_minus_v1": 0.060470851262410474}, "cosine_gap": {"v1": 0.013693983753522265, "v2": 0.0075171146790186105, "absolute_difference_v2_minus_v1": -0.006176869074503655}, "accuracy": {"v1": 0.3, "v2": 0.23333333333333334, "absolute_difference_v2_minus_v1": -0.06666666666666665}, "macro_f1": {"v1": 0.2920875420875421, "v2": 0.20341880341880345, "absolute_difference_v2_minus_v1": -0.08866873866873867}, "balanced_accuracy": {"v1": 0.30000000000000004, "v2": 0.2333333333333333, "absolute_difference_v2_minus_v1": -0.06666666666666674}}}; V2 differs from V1 in both structured generation and field-wise embedding aggregation; therefore this is a pipeline-level development comparison, not an isolated prompt-only ablation.; no training, threshold tuning, significance or generalization claim; no PlantDoc; independent unseen source-side PV confirmation still required.
+
+- V3-final discriminative structured morphology development: rationale from V2 text-overlap/retention error analysis; frozen six-string strict JSON schema, combined 180-word limit, discriminative_summary 35-word limit and cautious wording; same 30-image development set, no resampling; candidate = discriminative_summary only, frozen SigLIP with lossless chunking; {"model": "gpt-4.1-mini", "versions": ["gpt-4.1-mini-2025-04-14"], "metrics": {"accuracy": 0.23333333333333334, "macro_f1": 0.2324074074074074, "balanced_accuracy": 0.23333333333333336, "cosine_gap": 0.015007034301757871}}; no PlantDoc, no significance claim; prior 60-image confirmation not used; entirely new independent unseen PV-train confirmation required.
+
+- V4 taxonomy-aware structured morphology development: fixed six-class morphology ontology in prompt only; ground-truth labels never dynamically supplied; frozen six-string strict JSON schema, combined 200-word limit, evidence_summary 45-word limit and cautious wording; same 30-image development set, no resampling; candidate = evidence_summary only, frozen SigLIP with lossless chunking; {"model": "gpt-4.1-mini", "versions": ["gpt-4.1-mini-2025-04-14"], "metrics": {"accuracy": 0.4, "macro_f1": 0.42003367003367004, "balanced_accuracy": 0.39999999999999997, "cosine_gap": 0.011147620797157254}}; no PlantDoc, no significance claim; prior 60-image confirmation not used; entirely new independent unseen PV-train confirmation required.
+
+## Semantic Morphology Extraction, Canonical Representation, and Information-Loss Checkpoint
+
+Checkpoint date: 2026-10-21. This consolidates the completed semantic-morphology work since `1c3585a`, including the earlier short V2–V4 entries above. It preserves the distinction between development, independent source confirmation, blocked confirmation, exploratory sensitivity analysis, and future method development. This documentation pass used existing text/results and static script inspection only; no API requests, SigLIP inference, visual feature extraction, model training, or new PlantDoc analysis were performed.
+
+### A. Thesis objective and experimental discipline
+
+Source domain: PlantVillage (PV). External field domain: PlantDoc (PD). The thesis studies transfer from controlled PV images to real field conditions, and whether morphology-oriented semantic information can help reduce the lab-to-field robustness gap relative to visual-only baselines. A motivation is to encourage reliance on visible disease morphology rather than possible source/background shortcuts; these diagnostics do not establish that such shortcuts caused earlier errors.
+
+PlantDoc was previously used for EfficientNet, DINOv2, and other visual baseline evaluations. It was also used in the PV↔PD PCA/domain-shift diagnostic. Consequently, PlantDoc is not historically a completely unseen or untouched dataset. Earlier target-domain characterization and external baseline results remain part of the research history; this checkpoint does not erase that exposure.
+
+PlantDoc was not used for VLM prompt selection, semantic representation selection, morphology ontology design, canonicalization design, teacher/fusion architecture selection, knowledge-distillation design, or hyperparameter tuning in the current semantic-morphology development loop.
+
+Historical target-domain characterization and baseline evaluation were performed on PlantDoc, but the subsequent semantic-morphology and distillation method-development loop is source-only with respect to model selection.
+
+No PlantDoc data were used for prompt development, semantic representation selection, ontology design, or source-side diagnostics documented in this checkpoint. This statement concerns the present development loop, not the historical baseline/PCA work summarized as motivation.
+
+Going forward, PlantDoc metrics will not be consulted to choose an ontology, prompt, teacher/fusion architecture, distillation loss, or hyperparameters. Those decisions must use source-side development/validation only. The completed development/confirmation diagnostics are not evidence of reduced domain gap or improved field robustness.
+
+Frozen candidate systems will later be evaluated on PlantDoc as an external target-domain benchmark, but this must not be described as a historically unseen test set.
+
+### B. Semantic morphology motivation and intended method direction
+
+RAW EfficientNet and frozen DINOv2 visual baselines performed strongly on PV but exhibited substantial performance drops on PD, as documented in the earlier baseline sections. This motivated investigation of a more interpretable morphology-information branch. The aim is not to use GPT as the final disease classifier, nor to replace visual representations with a sparse canonical vector.
+
+The intended method direction is:
+
+```text
+PV image
+→ DINOv2 visual features
++
+VLM/GPT-derived morphology semantic information
+→ multimodal/fused teacher representation
+→ knowledge distillation
+→ image-only student
+→ frozen external PlantDoc evaluation
+```
+
+DINOv2 visual representation will be retained and used together with semantic text/morphology information. V1–V5, the cue audit, 28D diagnostic, and information-loss audit investigate what the teacher's semantic-information branch observes and preserves. They do not yet implement or validate a fused teacher or distilled student. Canonical morphology vectors are not designed as the standalone final classifier. Subsequent knowledge distillation is planned to transfer semantic/visual teacher knowledge into an image-only student; the fusion design, distillation loss, and student design remain future work.
+
+### C. V1 — free-form morphology description
+
+GPT-4.1-mini (observed version `gpt-4.1-mini-2025-04-14`) produced label-blind natural morphology descriptions. Disease labels, class paths, and filenames were not supplied as model content. The original development sample comprised 30 PV-train images, five per class. The downstream candidate was the entire free-form description encoded by frozen `google/siglip-base-patch16-224` (revision `7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed`).
+
+Development LOO class-prototype accuracy was 9/30 = 0.30000; Macro-F1 0.29209; balanced accuracy 0.30000. Same-class cosine mean was 0.91417, different-class mean 0.90047, and cosine gap 0.01369. The descriptions carried some class-related semantic structure, but separation was weak and cross-class similarities were generally high. Generic natural description alone was insufficient in this diagnostic. No significance claim is made.
+
+Provenance: `docs/experiment_results/pv_vlm_description_pilot/{descriptions.csv,summary.json,embedding_summary.json}`; existing V1 scripts and prompt were already covered by `1c3585a`.
+
+### D. V2 — structured visible morphology and overall_summary
+
+V2 generated six string fields: `color_pattern`, `lesions_spots`, `center_border_internal_pattern`, `distribution`, `surface_deformation`, and `overall_summary`. The ground-truth label remained hidden. The prompt requested visible morphology only, cautious wording such as “not clearly visible,” and no biological-absence inference. The combined output validation limit was 150 words. The candidate later selected on development was `overall_summary` alone.
+
+For text exceeding SigLIP's 64-token context, `scripts/siglip_text_encoding.py` partitions all content tokens in token space, budgets special tokens per chunk, and discards no tokens. Each chunk embedding is L2-normalized; chunks receive an equal mean followed by final L2 normalization. Single-chunk results retain the equivalent existing normalized result without redundant normalization. This is lossless with respect to input tokens, not a claim that chunk pooling preserves every semantic relation.
+
+| V2 development representation | Accuracy | Macro-F1 | Balanced accuracy | Cosine gap |
+|---|---:|---:|---:|---:|
+| overall_summary only | 0.56667 | 0.55469 | 0.56667 | 0.01945 |
+| Equal pooling of all six fields | 0.23333 | 0.20342 | 0.23333 | 0.00752 |
+
+Structured generation itself was not sufficient to explain the weaker all-field result. Equal pooling appears to introduce generic/repeated information and compress classes together, whereas the natural summary acted as useful semantic compression on development. This is a development-set observation and selection, not final evidence or an isolated causal ablation of prompt structure.
+
+Provenance: `data/pv_vlm_description_prompt_structured.txt`, `scripts/run_pv_vlm_description_structured_pilot.py`, `docs/experiment_results/pv_vlm_description_structured_pilot/{descriptions.jsonl,summary.json,field_diagnostics.json}`. Summary-only development verification is also retained in `pv_vlm_semantic_confirmation/summary.json`.
+
+### E. Field-level V2 diagnostic
+
+Existing structured outputs were analyzed field by field without new API inference. The original 30-image set gave the following individual-field LOO results:
+
+| Field | Accuracy | Macro-F1 |
+|---|---:|---:|
+| color_pattern | 0.36667 | 0.37398 |
+| lesions_spots | 0.30000 | 0.28290 |
+| center_border_internal_pattern | 0.23333 | 0.20723 |
+| distribution | 0.23333 | 0.18571 |
+| surface_deformation | 0.23333 | 0.21517 |
+| overall_summary | 0.56667 | 0.55469 |
+
+`overall_summary` was the strongest individual field; `color_pattern` also showed signal. Distribution and surface deformation were weak alone under this text embedding/prototype protocol. That does not show those information types are intrinsically unimportant: useful information may be present while its embedding or aggregation is ineffective. Indiscriminate pooling performed worse than natural summarization. These are small-sample descriptive findings, not statistical proof. Provenance: `pv_vlm_description_structured_pilot/field_diagnostics.json`.
+
+### F. Independent 60-image V1 versus V2 source confirmation
+
+A new PV-train sample contained 60 images, ten per class, with zero source-image overlap with the original development 30. V2's summary-only candidate had already been selected on development. No PD data were used in this confirmation.
+
+| Representation | Accuracy | Macro-F1 | Balanced accuracy | Cosine gap |
+|---|---:|---:|---:|---:|
+| V1 free-form | 0.33333 | 0.32222 | 0.33333 | 0.009276 |
+| V2 overall_summary | 0.35000 | 0.33830 | 0.35000 | 0.012643 |
+
+Paired correctness: both correct 8; V1 only correct 12; V2 only correct 13; both wrong 27. The large V2 development advantage did not reproduce. V2's source-side advantage remained directionally positive but small; it was retained as an observation candidate rather than a solved representation. No significance claim is made. This set was subsequently inspected in error analysis and is no longer pristine for future prompt confirmation.
+
+Provenance: `scripts/run_pv_vlm_semantic_confirmation.py`, `docs/experiment_results/pv_vlm_semantic_confirmation/{descriptions_v1.csv,descriptions_v2.jsonl,summary.json}`. The protocol embeds the 60-image identity manifest and original-development exclusions.
+
+### G. V2 confirmation error analysis
+
+Text-only analysis of the existing 60-image outputs found overlapping language in difficult class pairs. Bacterial spot (BS) and Septoria (SP) often shared dark-spot, yellowing, and pale-center wording; Septoria summaries did not explicitly express circular/round spots. Early blight (EB) and Late blight (LB) shared irregular brown/necrotic lesion language; concentric-ring evidence for EB and water-soaked wording for LB were frequently missing. Leaf Mold (LM) and mosaic virus (MV) shared yellow-green discoloration/curling language, while explicit visible surface-growth evidence for LM was frequently missing.
+
+Detailed-field-to-summary affirmative retention was 23/25 for pale/gray centers, 21/21 for dark borders/margins, 1/6 for yellow-halo color specificity, and 6/7 for vein association. No affirmative detailed-field ring or surface-growth evidence was detected under that analysis's lexical rules, so affirmative retention rates for those concepts were undefined. Some discriminators were missing from the detailed observations themselves; summary compression alone cannot explain all confusion. Making summaries longer was therefore unlikely, by itself, to address the limitations. Observation quality, cue specificity, and qualifier retention remained relevant hypotheses.
+
+The lexical analysis assesses text, not visual truth. Its own uncertainty/affirmative conventions differ from the later 14-cue audit and must not be silently treated as the same measurement. Provenance: `pv_vlm_semantic_confirmation/error_analysis.json`, including evidence, rules, representative cases, and limitations.
+
+### H. V3 — discriminative structured summary
+
+V3 attempted to retain only visibly distinctive morphology while avoiding generic observations. The candidate was `discriminative_summary`; the same original 30 development images were reused. Accuracy was 0.23333, Macro-F1 0.23241, balanced accuracy 0.23333, and cosine gap 0.01501.
+
+Forcing discriminative selection did not improve the diagnostic. Descriptions also varied across prompt versions: for example, faint concentric-ring wording appeared in V3 for development images where V2 said no clear rings. This is textual instability, not image-verified evidence that either version is correct. Visually distinctive is not necessarily diagnostically discriminative. V3 was label-blind and lacked the six-class task ontology, so it had no explicit task-specific guide to which cues distinguish the classes.
+
+Provenance: `data/pv_vlm_description_prompt_v3_discriminative.txt`, `scripts/run_pv_vlm_description_v3_discriminative.py`, `pv_vlm_description_v3_discriminative/{descriptions.jsonl,summary.json}`.
+
+### I. V4 — taxonomy-aware morphology-only observation
+
+V4 supplied the same six candidate disease categories and visible-morphology guide to every image. The image's true label remained hidden; the model was instructed not to diagnose or name diseases in its output. This was a fixed shared inspection ontology, not image-specific label conditioning. The candidate representation was `evidence_summary`.
+
+Validation rejected disease/pathogen names while allowing generic morphology such as spots, mosaic-like patterns, and blotches. Meta-commentary such as “useful for disease differentiation” was rejected separately from name leakage. Raw responses were retained even when validation failed. Development accuracy was 0.40000, Macro-F1 0.42003, balanced accuracy 0.40000, and cosine gap 0.01115.
+
+Taxonomy-aware guidance performed above V1/V3 but below V2 on development. It appeared potentially useful as observation guidance, while also risking checklist-like descriptions. No confirmed superiority follows from this development comparison.
+
+Provenance: `data/pv_vlm_description_prompt_v4_taxonomy_aware.txt`, `scripts/run_pv_vlm_description_v4_taxonomy_aware.py`, `pv_vlm_description_v4_taxonomy_aware/{descriptions.jsonl,summary.json}`.
+
+### J. V5 — hybrid V2 summary and taxonomy guidance
+
+V5 aimed to preserve V2's broader natural `overall_summary` while using V4's taxonomy only for inspection. On the original development sample, accuracy was 0.30000, Macro-F1 0.30736, balanced accuracy 0.30000, and cosine gap 0.01531.
+
+The combination did not produce additive benefit in this test. Checklist/negative-cue language may have diluted useful information, but this mechanism was not isolated experimentally. Taxonomy guidance should not simply be injected into every description stage on the assumption that it improves representation.
+
+Provenance: `data/pv_vlm_description_prompt_v5_hybrid.txt`, `scripts/run_pv_vlm_description_v5_hybrid.py`, `pv_vlm_description_v5_hybrid/{descriptions.jsonl,summary.json}`.
+
+### K. Frozen V2 versus V4 — new 120-image confirmation attempt
+
+The frozen comparison selected 120 new PV-train images, 20 per class, seed 42, with neutral IDs `pv_confirm2_001`–`pv_confirm2_120`. Source identities had zero overlap with both the development 30 and previous confirmation 60. V2/V4 used paired identical image bytes. Prompts were frozen and prompt tuning on this set was prohibited. No PD data were used.
+
+Primary status: `blocked_invalid_or_missing_paired_outputs`. V4 had 120/120 valid outputs; V2 had 115/120. The five V2 failures were solely the frozen combined 150-word validation rule: word counts 160, 151, 152, 168, and 157. Operational failure rate: 5/120 = 4.1667%. These were structurally parsed descriptions without other recorded validation errors; exceeding the word limit is an operational compliance limitation, not evidence that the descriptions contained no usable morphology. Their morphological correctness was not independently established.
+
+The primary protocol required 120 valid paired outputs. Consequently, the primary confirmatory comparison was not completed; no successful confirmation or winner is recorded.
+
+Provenance: `scripts/run_pv_vlm_v2_v4_confirmation2.py`, `pv_vlm_v2_v4_confirmation2/{sample_manifest.json,v2_descriptions.jsonl,v4_descriptions.jsonl,summary.json}`. Frozen prompt, validator, helper, and sample hashes remain in the saved protocol.
+
+### L. Exploratory common-valid 115 sensitivity analysis
+
+**EXPLORATORY_COMMON_VALID_115_NOT_CONFIRMATORY**
+
+Only images valid under both frozen protocols were included. V2-induced exclusions may be non-random; the original confirmation decision rule was not applied. These are exploratory/sensitivity metrics only, with no winner or significance claim.
+
+| Representation | Accuracy | Macro-F1 | Balanced accuracy | Cosine gap |
+|---|---:|---:|---:|---:|
+| V2 | 0.373913 | 0.361192 | 0.369444 | 0.013762 |
+| V4 | 0.452174 | 0.447038 | 0.449366 | 0.010946 |
+
+V2 same-class cosine: 0.869517 ± 0.064121; different-class: 0.855755 ± 0.064236. V4 same-class: 0.891983 ± 0.053843; different-class: 0.881037 ± 0.054232. Standard deviations are sample standard deviations. Pair summaries are descriptive and contain dependent pairs.
+
+Paired correctness: both correct 26; V2 only 17; V4 only 26; both wrong 46.
+
+| Class | Support | V2 recall | V4 recall |
+|---|---:|---:|---:|
+| BS | 19 | 0.2105 | 0.3158 |
+| EB | 18 | 0.1667 | 0.2778 |
+| LB | 19 | 0.3158 | 0.4737 |
+| LM | 20 | 0.6000 | 0.5000 |
+| SP | 20 | 0.4500 | 0.5500 |
+| MV | 19 | 0.4737 | 0.5789 |
+
+Confusion counts V2→V4: BS→SP 7→5; EB→LB 9→6; LB→EB 7→3; MV→LM 6→4; LM→MV worsened 2→5. V4 recall was higher in five of six classes, an encouraging exploratory pattern across several difficult pairs. Non-random compliance exclusions prevent confirmatory interpretation. Global cosine gap did not consistently track prototype classification quality and remains a descriptive diagnostic rather than the primary selection criterion.
+
+Provenance: `pv_vlm_v2_v4_confirmation2/summary.json`, subtree `exploratory_common_valid_sensitivity`. The enclosing primary status remains blocked.
+
+### M. Canonical morphology motivation
+
+Natural text is rich but variable: similar observations can be phrased as “small dark lesions” or “tiny blackish spots.” Canonicalization maps observations into a standard visual vocabulary to improve interpretability and investigate whether generic text embedding discards relevant information. It must not invent observations absent from the text. This is investigation of the future teacher's semantic branch, not a standalone final-classifier proposal.
+
+### N. Existing 14-cue ontology and states
+
+The frozen cue order is:
+
+1. small_dark_spots
+2. circular_spots
+3. dark_borders
+4. lighter_gray_centers
+5. surrounding_yellowing
+6. concentric_ring_pattern
+7. large_irregular_blotches
+8. water_soaked_appearance
+9. yellowish_patches
+10. olive_brown_surface_growth
+11. mosaic_mottled_green_pattern
+12. leaf_curling
+13. leaf_narrowing
+14. leaf_deformation
+
+`supported` means explicit positive visible evidence in existing V2 text; `uncertain` captures weak or partial textual support; `not_observed` means no positive textual support under the rules. **not_observed does not mean biological absence.** Hidden labels were used only after state extraction for aggregation. Existing assignments were not changed by the subsequent diagnostics.
+
+### O. Original-development 14-cue coverage audit
+
+Only existing original 30 V2 outputs were used, without new API inference. Deterministic, inspectable vocabulary/regex rules and evidence snippets produced 420 image×cue assignments.
+
+| Cue | Supported | Uncertain | Not observed | S+U coverage |
+|---|---:|---:|---:|---:|
+| small_dark_spots | 6 | 6 | 18 | 40.0% |
+| circular_spots | 0 | 0 | 30 | 0.0% |
+| dark_borders | 10 | 0 | 20 | 33.3% |
+| lighter_gray_centers | 8 | 2 | 20 | 33.3% |
+| surrounding_yellowing | 2 | 16 | 12 | 60.0% |
+| concentric_ring_pattern | 0 | 3 | 27 | 10.0% |
+| large_irregular_blotches | 4 | 4 | 22 | 26.7% |
+| water_soaked_appearance | 0 | 0 | 30 | 0.0% |
+| yellowish_patches | 5 | 13 | 12 | 60.0% |
+| olive_brown_surface_growth | 0 | 0 | 30 | 0.0% |
+| mosaic_mottled_green_pattern | 7 | 1 | 22 | 26.7% |
+| leaf_curling | 8 | 18 | 4 | 86.7% |
+| leaf_narrowing | 8 | 1 | 21 | 30.0% |
+| leaf_deformation | 9 | 8 | 13 | 56.7% |
+
+Most frequently represented: curling, surrounding yellowing, yellowish patches, deformation, and small dark spots. No positive/uncertain text matches occurred for circular spots, water-soaked appearance, or olive-brown growth. Mostly-uncertain flags applied to surrounding yellowing, concentric rings, yellowish patches, and curling. Several pathology-oriented cues were rarely or never expressed in these descriptions; this does not establish pathology irrelevance or image-level absence. Canonicalization cannot recover missing source observations.
+
+Rules are a first pass: general yellowing without explicit halo/patch geometry can be partial support, pale/light centers are accepted as lighter centers, and negation scope or bounded attribute matching can be ambiguous. Provenance: `scripts/audit_v2_morphology_cue_coverage.py`, `pv_vlm_morphology_cue_audit/coverage_audit.json`.
+
+### P. Canonical 28D representation diagnostic
+
+Each cue uses two unweighted binary channels in the fixed cue order: supported→[1,0], uncertain→[0,1], not_observed→[0,0]. There are 28 dimensions, no learned weights, training, or tuning. Cosine LOO class-prototype diagnostics use the arithmetic mean of four remaining own-class vectors and five vectors for each other class. Complete zero vectors were checked before cosine/prototype metrics; none existed.
+
+Active supported channels per image: 2.23 ± 1.59; uncertain channels: 2.40 ± 1.61; min–max for both: 0–6. Three cues were constant zero across both channels: circular spots, water-soaked appearance, and olive-brown growth. Standard deviations use ddof=1.
+
+Development accuracy was 0.4000 (12/30), Macro-F1 0.3771, and balanced accuracy 0.4000. Same-class cosine was 0.392626 ± 0.245173, different-class 0.270002 ± 0.225445, gap 0.122624. Class recalls in BS/EB/LB/LM/SP/MV order were [0.60, 0.80, 0.40, 0.00, 0.60, 0.00]. One exact maximum-score tie (`pv_desc_027`, LM/SP) was resolved by the documented sorted-class-order rule.
+
+The vector preserved class-related source-side structure but did not outperform V2 summary→SigLIP (0.56667 accuracy, 0.55469 Macro-F1). LM and MV had zero recall in this particular diagnostic, suggesting the present ontology/encoding did not separate them adequately. This is not proof that their relevant morphology is intrinsically unrepresentable.
+
+A larger cosine gap across different representation spaces is not evidence of superior representation quality. The sparse-vector and SigLIP geometries differ, so their gap magnitudes cannot establish relative superiority.
+
+Provenance: `scripts/analyze_canonical_morphology_representation.py`, `pv_vlm_morphology_cue_audit/canonical_28d_diagnostic.json`, which retains feature order, per-image vectors/scores, confusion matrix, class profiles, and fixed development references.
+
+### Q. V2→canonical information-loss audit
+
+The audit used only V2 structured development descriptions, the cue coverage audit, and the canonical 28D diagnostic, all matched to the same original 30 images (six classes × five). Input hash chains, identities, labels, and state/vector consistency were checked. No new API/SigLIP inference, confirmation samples, or PD data were used, and no existing cue assignments changed.
+
+Question: which visibly descriptive information in the six V2 fields is not adequately preserved by the current 14-cue representation? Transparent keyword/regex rules extract candidate features as `present`, `uncertain`, or `not_mentioned`. Extraction is label-blind; labels describe aggregates only. Generic prose is excluded. Surface texture beyond deformation was included as an additional family G alongside focus families A–F.
+
+| Information family | Images with loss | Image×feature loss records |
+|---|---:|---:|
+| C — Distribution geometry | 27/30 | 53 |
+| D — Spatial/location information | 25/30 | 50 |
+| A — Lesion count/density | 24/30 | 26 |
+| B — Lesion size | 17/30 | 33 |
+| G — Additional surface texture | 17/30 | 24 |
+| F — Color structure | 16/30 | 27 |
+| E — Lesion organization | 8/30 | 8 |
+
+Families overlap. Counts are image×feature records, not raw repeated phrase counts or independent information bits; related features can overlap within and across families.
+
+| Lost feature | Present | Uncertain | Coverage |
+|---|---:|---:|---:|
+| scattered_distribution | 19 | 0 | 63.3% |
+| uneven_distribution | 19 | 0 | 63.3% |
+| central_associated | 14 | 1 | 50.0% |
+| small_lesion_size | 14 | 0 | 46.7% |
+| numerous_lesions | 13 | 0 | 43.3% |
+| rough_surface_texture | 10 | 2 | 40.0% |
+| upper_leaf_associated | 11 | 0 | 36.7% |
+| dark_lesion_centers | 11 | 0 | 36.7% |
+| margin_associated | 10 | 0 | 33.3% |
+| multiple_lesions | 9 | 0 | 30.0% |
+| mixed_lesion_sizes | 9 | 0 | 30.0% |
+| medium_lesion_size | 7 | 0 | 23.3% |
+| widespread_distribution | 7 | 0 | 23.3% |
+| dark_brown_black_discoloration | 6 | 0 | 20.0% |
+| raised_surface_texture | 2 | 4 | 20.0% |
+
+The audit's `strong_candidate` review flags were: scattered_distribution, uneven_distribution, central_associated, upper_leaf_associated, margin_associated, numerous_lesions, multiple_lesions, medium_lesion_size, widespread_distribution, and rough_surface_texture. These are candidate ontology extensions only. They have not been added or evaluated as a new representation. Ranking is descriptive by coverage, redundancy/ambiguity risk, and class-distribution variation as a tie breaker; recommendations use fixed coverage/risk rules, never classification accuracy or label-optimized performance.
+
+Descriptive example only (n=5 per class): dark_brown_black_discoloration occurred in 5/5 Early-blight texts, 1/5 Late-blight texts, and 0/5 in each other class. Frequency is not predictive validation; class variation is not causality or image-verified pathology truth.
+
+Risks include partial redundancy between standalone size features and existing combined cues, regex negation scope, object scope, and association versus dominant location. Existing mottling content is excluded from the unpatterned-green-contrast proposal where detected. Presence/uncertainty in text is not a biological ground-truth annotation, and not_mentioned is not biological absence.
+
+The initial ontology discards substantial geometry/distribution/count information. This is a plausible, untested explanation for its lower prototype performance than V2 summary→SigLIP; the audit is not a causal ablation. V2 contains spatial, organizational, and texture information beyond the initial pathology-focused cue bank.
+
+Provenance: `scripts/audit_v2_canonical_information_loss.py`, `pv_vlm_morphology_cue_audit/information_loss_audit.json`, including per-image evidence/rejected matches, overall/per-class counts, family summaries, rules, and candidate recommendations.
+
+### R. Current scientific interpretation and working hypothesis
+
+The completed source-side diagnostics support the following limited synthesis:
+
+1. VLM descriptions contain class-related morphology signal in PV text-based diagnostics; visual grounding accuracy is not established by these metrics alone.
+2. Structured V2 natural summaries retained more useful prototype structure on development than the initial 14-cue vector, while their large development gain over V1 did not reproduce on independent confirmation.
+3. The initial canonical ontology was pathology-cue-centric and discarded geometry, distribution, count, organization, and texture information that remained in V2 text.
+4. Taxonomy-aware prompting showed encouraging exploratory behavior, but V4 superiority was not confirmed.
+5. Forcing more discriminative or taxonomy-heavy text did not reliably improve representation.
+6. Semantic-branch quality depends both on what the VLM observes and how observations are represented downstream. A stronger standalone semantic diagnostic does not establish a stronger fused teacher or distilled student.
+
+Working hypothesis: a useful morphology semantic branch may need both pathology-specific lesion cues and image-grounded count, size, spatial concentration, organization, and texture. These should complement retained DINOv2 visual information in a multimodal teacher. This remains a source-side hypothesis; no PV→PD gap reduction has been demonstrated for this method.
+
+The main thesis question is:
+
+> Whether adding morphology-oriented semantic information to DINOv2 visual representations, and subsequently distilling that multimodal knowledge into an image-only student, improves lab-to-field robustness relative to visual-only baselines.
+
+There is no positive answer yet. No statistical significance, causal morphology, confirmed V4 superiority, field robustness improvement, or domain-gap reduction is claimed here.
+
+### S. Next planned research step and checkpoint provenance
+
+Design an expanded morphology+geometry ontology for the semantic branch using the coverage and information-loss audits. Do not append every frequent feature: assess redundancy and extraction ambiguity, preserve interpretability, distinguish presence from uncertainty, and retain spatial/count/size information where justified. The next source-side diagnostic should test whether an expanded canonical representation retains more of V2's class-related structure. No expanded ontology has yet been implemented or evaluated.
+
+Retain DINOv2 visual features, then investigate how semantic text/morphology information can form a fused/multimodal teacher. Teacher architecture, fusion, distillation loss, and hyperparameters must be selected using PV-side evidence only. Distillation into an image-only student and frozen external PD benchmarking are later steps. PD scores must not guide any of these method-development decisions, and the eventual benchmark must acknowledge prior historical PD exposure.
+
+Provenance verification before this edit: 144 numeric/identity/hash checks passed. Supplied values agree with repository outputs at their stated rounded precision; no numerical discrepancy was found. Checks covered V1–V5 and individual V2 fields, previous-60 metrics/paired counts and retention, blocked-120 validity/failure word counts, exploratory-115 metrics/recalls/confusion trends, 14-cue counts, 28D metrics/sparsity, information-loss families/features, pairwise source-sample disjointness, frozen prompt/validator/helper hashes, and chained audit input hashes. Actual result files and static scripts were inspected; no experiment was rerun to obtain these results. Historical error-analysis source hashes are snapshots at the time of that analysis, including its earlier research-log version; they do not assert that this subsequently appended log is unchanged.
+
+Existing result directories retain the detailed manifests, summaries, descriptions, error analysis, and audits referenced above. Future checkpoint inclusion should be limited to the four V2–V5 prompts, seven completed generation/encoding scripts, three morphology-analysis scripts, relevant source-side JSON/JSONL/CSV results in the seven semantic-morphology result directories, and this log. Generated `.pt` embeddings/model artifacts and any PD data/results must remain outside that checkpoint. This pass performs no staging, commit, or push.

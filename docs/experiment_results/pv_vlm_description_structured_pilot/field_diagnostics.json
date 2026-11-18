@@ -1,0 +1,1070 @@
+{
+  "experiment": "pure v2-150 exploratory field discriminative diagnostics",
+  "source_artifact": "artifacts/pv_vlm_description/pv_vlm_description_structured_embeddings_siglip.pt",
+  "source_artifact_sha256": "ced81e97db8e02e5a7a6980796438332c15f7a290add52db9e94692f70e37e02",
+  "sample_count": 30,
+  "class_order": [
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Tomato_mosaic_virus"
+  ],
+  "field_order": [
+    "color_pattern",
+    "lesions_spots",
+    "center_border_internal_pattern",
+    "distribution",
+    "surface_deformation",
+    "overall_summary"
+  ],
+  "field_embedding_shape": [
+    30,
+    6,
+    768
+  ],
+  "field_norm_check": {
+    "passed": true,
+    "max_absolute_deviation": 2.384185791015625e-07,
+    "all_finite": true
+  },
+  "method": {
+    "pairing": "unique unordered pairs, no diagonal; ddof=1",
+    "loo": "query excluded; own class uses other 4, other classes use 5; normalized mean prototypes; argmax cosine",
+    "combination_pooling": "equal arithmetic mean of existing normalized selected fields, followed by L2 normalization",
+    "confusion_matrix_axes": "rows=true, columns=predicted; stored class_order",
+    "tie_rule": "first maximum in stored class_order"
+  },
+  "single_field_results": [
+    {
+      "name": "color_pattern",
+      "fields": [
+        "color_pattern"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.9101759503285091,
+        "sample_std": 0.042795271912796105
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.8915564907391866,
+        "sample_std": 0.046210169071778176
+      },
+      "cosine_gap": 0.01861945958932243,
+      "accuracy": 0.36666666666666664,
+      "macro_f1": 0.3739778739778739,
+      "balanced_accuracy": 0.36666666666666664,
+      "confusion_matrix": [
+        [
+          1,
+          0,
+          0,
+          1,
+          3,
+          0
+        ],
+        [
+          0,
+          3,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.2,
+        "Tomato___Early_blight": 0.6,
+        "Tomato___Late_blight": 0.0,
+        "Tomato___Leaf_Mold": 0.6,
+        "Tomato___Septoria_leaf_spot": 0.2,
+        "Tomato___Tomato_mosaic_virus": 0.6
+      },
+      "difference_vs_v1": {
+        "cosine_gap": 0.004925475835800164,
+        "accuracy": 0.06666666666666665,
+        "macro_f1": 0.08189033189033179,
+        "balanced_accuracy": 0.0666666666666666
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.011102344910303819,
+        "accuracy": 0.1333333333333333,
+        "macro_f1": 0.17055907055907046,
+        "balanced_accuracy": 0.13333333333333333
+      }
+    },
+    {
+      "name": "lesions_spots",
+      "fields": [
+        "lesions_spots"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.8442421317100525,
+        "sample_std": 0.08211986820570012
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.8269114645322164,
+        "sample_std": 0.07702949733267779
+      },
+      "cosine_gap": 0.017330667177836045,
+      "accuracy": 0.3,
+      "macro_f1": 0.28289950789950796,
+      "balanced_accuracy": 0.3,
+      "confusion_matrix": [
+        [
+          2,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          2,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3,
+          0,
+          2
+        ],
+        [
+          2,
+          0,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          2,
+          1,
+          1
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.4,
+        "Tomato___Early_blight": 0.4,
+        "Tomato___Late_blight": 0.2,
+        "Tomato___Leaf_Mold": 0.6,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.2
+      },
+      "difference_vs_v1": {
+        "cosine_gap": 0.0036366834243137802,
+        "accuracy": 0.0,
+        "macro_f1": -0.009188034188034155,
+        "balanced_accuracy": -5.551115123125783e-17
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.009813552498817435,
+        "accuracy": 0.06666666666666665,
+        "macro_f1": 0.07948070448070452,
+        "balanced_accuracy": 0.06666666666666668
+      }
+    },
+    {
+      "name": "center_border_internal_pattern",
+      "fields": [
+        "center_border_internal_pattern"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.883895821372668,
+        "sample_std": 0.06801287612120868
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.8645377786954244,
+        "sample_std": 0.07312079491159347
+      },
+      "cosine_gap": 0.019358042677243614,
+      "accuracy": 0.23333333333333334,
+      "macro_f1": 0.20723443223443225,
+      "balanced_accuracy": 0.2333333333333333,
+      "confusion_matrix": [
+        [
+          2,
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          2,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          4,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          1,
+          2
+        ],
+        [
+          2,
+          0,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          2,
+          0,
+          2
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.4,
+        "Tomato___Early_blight": 0.4,
+        "Tomato___Late_blight": 0.0,
+        "Tomato___Leaf_Mold": 0.0,
+        "Tomato___Septoria_leaf_spot": 0.2,
+        "Tomato___Tomato_mosaic_virus": 0.4
+      },
+      "difference_vs_v1": {
+        "cosine_gap": 0.005664058923721349,
+        "accuracy": -0.06666666666666665,
+        "macro_f1": -0.08485310985310987,
+        "balanced_accuracy": -0.06666666666666674
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.011840927998225004,
+        "accuracy": 0.0,
+        "macro_f1": 0.003815628815628802,
+        "balanced_accuracy": 0.0
+      }
+    },
+    {
+      "name": "distribution",
+      "fields": [
+        "distribution"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.8966574649016062,
+        "sample_std": 0.0609871705117942
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.8852667361895243,
+        "sample_std": 0.06696779521997659
+      },
+      "cosine_gap": 0.01139072871208191,
+      "accuracy": 0.23333333333333334,
+      "macro_f1": 0.18571428571428572,
+      "balanced_accuracy": 0.2333333333333333,
+      "confusion_matrix": [
+        [
+          1,
+          1,
+          2,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          4,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          3,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          3,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          2,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.2,
+        "Tomato___Early_blight": 0.8,
+        "Tomato___Late_blight": 0.0,
+        "Tomato___Leaf_Mold": 0.0,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.4
+      },
+      "difference_vs_v1": {
+        "cosine_gap": -0.002303255041440355,
+        "accuracy": -0.06666666666666665,
+        "macro_f1": -0.1063732563732564,
+        "balanced_accuracy": -0.06666666666666674
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.0038736140330632995,
+        "accuracy": 0.0,
+        "macro_f1": -0.017704517704517725,
+        "balanced_accuracy": 0.0
+      }
+    },
+    {
+      "name": "surface_deformation",
+      "fields": [
+        "surface_deformation"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.93721398015817,
+        "sample_std": 0.02575416472423295
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.9347026238441467,
+        "sample_std": 0.022799391756280554
+      },
+      "cosine_gap": 0.0025113563140233275,
+      "accuracy": 0.23333333333333334,
+      "macro_f1": 0.21517094017094016,
+      "balanced_accuracy": 0.2333333333333333,
+      "confusion_matrix": [
+        [
+          2,
+          2,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          2,
+          2,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.4,
+        "Tomato___Early_blight": 0.4,
+        "Tomato___Late_blight": 0.2,
+        "Tomato___Leaf_Mold": 0.0,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.4
+      },
+      "difference_vs_v1": {
+        "cosine_gap": -0.011182627439498938,
+        "accuracy": -0.06666666666666665,
+        "macro_f1": -0.07691660191660196,
+        "balanced_accuracy": -0.06666666666666674
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": -0.005005758364995283,
+        "accuracy": 0.0,
+        "macro_f1": 0.01175213675213671,
+        "balanced_accuracy": 0.0
+      }
+    },
+    {
+      "name": "overall_summary",
+      "fields": [
+        "overall_summary"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.8474911044041316,
+        "sample_std": 0.09022246033658325
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.8280364058812459,
+        "sample_std": 0.0826523064841946
+      },
+      "cosine_gap": 0.019454698522885616,
+      "accuracy": 0.5666666666666667,
+      "macro_f1": 0.5546897546897547,
+      "balanced_accuracy": 0.5666666666666668,
+      "confusion_matrix": [
+        [
+          5,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          3,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          1,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          2,
+          0,
+          1
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 1.0,
+        "Tomato___Early_blight": 0.8,
+        "Tomato___Late_blight": 0.4,
+        "Tomato___Leaf_Mold": 0.6,
+        "Tomato___Septoria_leaf_spot": 0.4,
+        "Tomato___Tomato_mosaic_virus": 0.2
+      },
+      "difference_vs_v1": {
+        "cosine_gap": 0.005760714769363351,
+        "accuracy": 0.26666666666666666,
+        "macro_f1": 0.26260221260221256,
+        "balanced_accuracy": 0.2666666666666667
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.011937583843867006,
+        "accuracy": 0.3333333333333333,
+        "macro_f1": 0.3512709512709512,
+        "balanced_accuracy": 0.3333333333333335
+      }
+    }
+  ],
+  "predefined_combination_results": [
+    {
+      "name": "lesions_spots + center_border_internal_pattern",
+      "fields": [
+        "lesions_spots",
+        "center_border_internal_pattern"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.9141617139180501,
+        "sample_std": 0.0422066794756323
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.9013110440572103,
+        "sample_std": 0.040249587880969606
+      },
+      "cosine_gap": 0.012850669860839825,
+      "accuracy": 0.26666666666666666,
+      "macro_f1": 0.2183982683982684,
+      "balanced_accuracy": 0.26666666666666666,
+      "confusion_matrix": [
+        [
+          3,
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          0,
+          3
+        ],
+        [
+          2,
+          0,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          0,
+          2,
+          0,
+          1
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.6,
+        "Tomato___Early_blight": 0.6,
+        "Tomato___Late_blight": 0.2,
+        "Tomato___Leaf_Mold": 0.0,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.2
+      },
+      "difference_vs_v1": {
+        "cosine_gap": -0.0008433138926824402,
+        "accuracy": -0.033333333333333326,
+        "macro_f1": -0.07368927368927372,
+        "balanced_accuracy": -0.03333333333333338
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.005333555181821215,
+        "accuracy": 0.033333333333333326,
+        "macro_f1": 0.014979464979464951,
+        "balanced_accuracy": 0.033333333333333354
+      }
+    },
+    {
+      "name": "color_pattern + lesions_spots + center_border_internal_pattern",
+      "fields": [
+        "color_pattern",
+        "lesions_spots",
+        "center_border_internal_pattern"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.943630916873614,
+        "sample_std": 0.02568676256288633
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.9319628437360128,
+        "sample_std": 0.026194735541339692
+      },
+      "cosine_gap": 0.01166807313760121,
+      "accuracy": 0.36666666666666664,
+      "macro_f1": 0.3174436674436674,
+      "balanced_accuracy": 0.36666666666666664,
+      "confusion_matrix": [
+        [
+          2,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0,
+          3
+        ],
+        [
+          3,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          0,
+          1,
+          0,
+          2
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.4,
+        "Tomato___Early_blight": 1.0,
+        "Tomato___Late_blight": 0.0,
+        "Tomato___Leaf_Mold": 0.4,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.4
+      },
+      "difference_vs_v1": {
+        "cosine_gap": -0.002025910615921056,
+        "accuracy": 0.06666666666666665,
+        "macro_f1": 0.025356125356125303,
+        "balanced_accuracy": 0.0666666666666666
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.004150958458582599,
+        "accuracy": 0.1333333333333333,
+        "macro_f1": 0.11402486402486398,
+        "balanced_accuracy": 0.13333333333333333
+      }
+    },
+    {
+      "name": "lesions_spots + center_border_internal_pattern + distribution",
+      "fields": [
+        "lesions_spots",
+        "center_border_internal_pattern",
+        "distribution"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.9421381334463755,
+        "sample_std": 0.02910008270113599
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.9326444053649903,
+        "sample_std": 0.030176165966542615
+      },
+      "cosine_gap": 0.009493728081385266,
+      "accuracy": 0.23333333333333334,
+      "macro_f1": 0.1597222222222222,
+      "balanced_accuracy": 0.2333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          2,
+          0,
+          0,
+          2,
+          1
+        ],
+        [
+          0,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          2,
+          1,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          0,
+          1,
+          0,
+          2
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.0,
+        "Tomato___Early_blight": 1.0,
+        "Tomato___Late_blight": 0.0,
+        "Tomato___Leaf_Mold": 0.0,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.4
+      },
+      "difference_vs_v1": {
+        "cosine_gap": -0.004200255672136999,
+        "accuracy": -0.06666666666666665,
+        "macro_f1": -0.1323653198653199,
+        "balanced_accuracy": -0.06666666666666674
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.001976613402366656,
+        "accuracy": 0.0,
+        "macro_f1": -0.043696581196581236,
+        "balanced_accuracy": 0.0
+      }
+    },
+    {
+      "name": "color_pattern + lesions_spots + center_border_internal_pattern + distribution",
+      "fields": [
+        "color_pattern",
+        "lesions_spots",
+        "center_border_internal_pattern",
+        "distribution"
+      ],
+      "same_class_cosine": {
+        "count": 60,
+        "mean": 0.9557132393121719,
+        "sample_std": 0.02142729449131974
+      },
+      "different_class_cosine": {
+        "count": 375,
+        "mean": 0.9467084261576335,
+        "sample_std": 0.023112523956465045
+      },
+      "cosine_gap": 0.009004813154538382,
+      "accuracy": 0.26666666666666666,
+      "macro_f1": 0.24722222222222223,
+      "balanced_accuracy": 0.26666666666666666,
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          1,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          0,
+          1,
+          0,
+          2
+        ]
+      ],
+      "per_class_recall": {
+        "Tomato___Bacterial_spot": 0.0,
+        "Tomato___Early_blight": 1.0,
+        "Tomato___Late_blight": 0.0,
+        "Tomato___Leaf_Mold": 0.2,
+        "Tomato___Septoria_leaf_spot": 0.0,
+        "Tomato___Tomato_mosaic_virus": 0.4
+      },
+      "difference_vs_v1": {
+        "cosine_gap": -0.004689170598983883,
+        "accuracy": -0.033333333333333326,
+        "macro_f1": -0.044865319865319886,
+        "balanced_accuracy": -0.03333333333333338
+      },
+      "difference_vs_v2_all_six": {
+        "cosine_gap": 0.001487698475519772,
+        "accuracy": 0.033333333333333326,
+        "macro_f1": 0.04380341880341879,
+        "balanced_accuracy": 0.033333333333333354
+      }
+    }
+  ],
+  "v1_baseline": {
+    "source": "docs/experiment_results/pv_vlm_description_pilot/embedding_summary.json",
+    "cosine_gap": 0.013693983753522265,
+    "accuracy": 0.3,
+    "macro_f1": 0.2920875420875421,
+    "balanced_accuracy": 0.30000000000000004
+  },
+  "v2_all_field_baseline": {
+    "source": "summary.json:diagnostics",
+    "cosine_gap": 0.0075171146790186105,
+    "accuracy": 0.23333333333333334,
+    "macro_f1": 0.20341880341880345,
+    "balanced_accuracy": 0.2333333333333333
+  },
+  "ranking_by_cosine_gap": [
+    {
+      "rank": 1,
+      "name": "overall_summary",
+      "value": 0.019454698522885616
+    },
+    {
+      "rank": 2,
+      "name": "center_border_internal_pattern",
+      "value": 0.019358042677243614
+    },
+    {
+      "rank": 3,
+      "name": "color_pattern",
+      "value": 0.01861945958932243
+    },
+    {
+      "rank": 4,
+      "name": "lesions_spots",
+      "value": 0.017330667177836045
+    },
+    {
+      "rank": 5,
+      "name": "lesions_spots + center_border_internal_pattern",
+      "value": 0.012850669860839825
+    },
+    {
+      "rank": 6,
+      "name": "color_pattern + lesions_spots + center_border_internal_pattern",
+      "value": 0.01166807313760121
+    },
+    {
+      "rank": 7,
+      "name": "distribution",
+      "value": 0.01139072871208191
+    },
+    {
+      "rank": 8,
+      "name": "lesions_spots + center_border_internal_pattern + distribution",
+      "value": 0.009493728081385266
+    },
+    {
+      "rank": 9,
+      "name": "color_pattern + lesions_spots + center_border_internal_pattern + distribution",
+      "value": 0.009004813154538382
+    },
+    {
+      "rank": 10,
+      "name": "surface_deformation",
+      "value": 0.0025113563140233275
+    }
+  ],
+  "ranking_by_macro_f1": [
+    {
+      "rank": 1,
+      "name": "overall_summary",
+      "value": 0.5546897546897547
+    },
+    {
+      "rank": 2,
+      "name": "color_pattern",
+      "value": 0.3739778739778739
+    },
+    {
+      "rank": 3,
+      "name": "color_pattern + lesions_spots + center_border_internal_pattern",
+      "value": 0.3174436674436674
+    },
+    {
+      "rank": 4,
+      "name": "lesions_spots",
+      "value": 0.28289950789950796
+    },
+    {
+      "rank": 5,
+      "name": "color_pattern + lesions_spots + center_border_internal_pattern + distribution",
+      "value": 0.24722222222222223
+    },
+    {
+      "rank": 6,
+      "name": "lesions_spots + center_border_internal_pattern",
+      "value": 0.2183982683982684
+    },
+    {
+      "rank": 7,
+      "name": "surface_deformation",
+      "value": 0.21517094017094016
+    },
+    {
+      "rank": 8,
+      "name": "center_border_internal_pattern",
+      "value": 0.20723443223443225
+    },
+    {
+      "rank": 9,
+      "name": "distribution",
+      "value": 0.18571428571428572
+    },
+    {
+      "rank": 10,
+      "name": "lesions_spots + center_border_internal_pattern + distribution",
+      "value": 0.1597222222222222
+    }
+  ],
+  "limitations": "Exploratory analysis on the same 30-image PV-train prompt-development set. Only the four predefined combinations evaluated. No learned weighting, search, threshold tuning, statistical significance or generalization claims. Highest-ranked results are not final evidence; independent unseen source-side PV confirmation is required. No PlantDoc, new GPT inference, text changes, encoder inference or training."
+}

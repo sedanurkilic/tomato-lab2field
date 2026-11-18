@@ -1,0 +1,1340 @@
+{
+  "protocol": {
+    "experiment_id": "pv_v5_hybrid_taxonomy_guided_overall_summary_development",
+    "prompt_source_path": "data/pv_vlm_description_prompt_v5_hybrid.txt",
+    "prompt_sha256": "ec88ad6a8df667219e55759af54ac44456a216d3a1575c78b94d4703c29a6473",
+    "schema_name": "pv_v5_hybrid_taxonomy_guided_morphology",
+    "schema_version": "1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "color_pattern": {
+          "type": "string"
+        },
+        "lesions_spots": {
+          "type": "string"
+        },
+        "center_border_internal_pattern": {
+          "type": "string"
+        },
+        "distribution": {
+          "type": "string"
+        },
+        "surface_deformation": {
+          "type": "string"
+        },
+        "overall_summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "color_pattern",
+        "lesions_spots",
+        "center_border_internal_pattern",
+        "distribution",
+        "surface_deformation",
+        "overall_summary"
+      ],
+      "additionalProperties": false
+    },
+    "model": "gpt-4.1-mini",
+    "word_limit": 220,
+    "overall_summary_word_limit": 70,
+    "prompt_version": "V5-hybrid-taxonomy-guided",
+    "prompt_frozen": true,
+    "candidate_representation": "overall_summary",
+    "encoder": "google/siglip-base-patch16-224",
+    "encoder_revision": "7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed",
+    "encoding_rule": "lossless_token_chunks_l2_each_equal_mean_final_l2_v1",
+    "class_order": [
+      "Tomato___Bacterial_spot",
+      "Tomato___Early_blight",
+      "Tomato___Late_blight",
+      "Tomato___Leaf_Mold",
+      "Tomato___Septoria_leaf_spot",
+      "Tomato___Tomato_mosaic_virus"
+    ],
+    "sample_count": 30,
+    "per_class_counts": {
+      "Tomato___Bacterial_spot": 5,
+      "Tomato___Early_blight": 5,
+      "Tomato___Late_blight": 5,
+      "Tomato___Leaf_Mold": 5,
+      "Tomato___Septoria_leaf_spot": 5,
+      "Tomato___Tomato_mosaic_virus": 5
+    },
+    "sample_design_seed": 42,
+    "resampling": false,
+    "development_sample": [
+      {
+        "image_id": "pv_desc_001",
+        "source_image_id": "plantvillage_dbb90a160d7f3968c21668383fcabb390da7a6fdaf48adf96b4beb6ee29da5df",
+        "hidden_ground_truth_class": "Tomato___Bacterial_spot"
+      },
+      {
+        "image_id": "pv_desc_002",
+        "source_image_id": "plantvillage_29710f3fe410e509bf2cfcc302ffaf0139897f2384549ac6c38a4a498213eb2f",
+        "hidden_ground_truth_class": "Tomato___Early_blight"
+      },
+      {
+        "image_id": "pv_desc_003",
+        "source_image_id": "plantvillage_07439ab762cf387c11e53ba7748b9341713c9aaa1b08df6eebc6ee184c020904",
+        "hidden_ground_truth_class": "Tomato___Late_blight"
+      },
+      {
+        "image_id": "pv_desc_004",
+        "source_image_id": "plantvillage_6f821f61e9f80cf5ffacbac5c9f394f8b891545d29b9e9372ef13479c9cb0cc4",
+        "hidden_ground_truth_class": "Tomato___Leaf_Mold"
+      },
+      {
+        "image_id": "pv_desc_005",
+        "source_image_id": "plantvillage_6a4a53f101a8cf58d343b3038a54fa030d303f9689bd9516deedaeb5510fda4e",
+        "hidden_ground_truth_class": "Tomato___Septoria_leaf_spot"
+      },
+      {
+        "image_id": "pv_desc_006",
+        "source_image_id": "plantvillage_77e0006e6a7d57de9e2df100071cd7419b619286bb67e6933e1536a86135ed43",
+        "hidden_ground_truth_class": "Tomato___Tomato_mosaic_virus"
+      },
+      {
+        "image_id": "pv_desc_007",
+        "source_image_id": "plantvillage_32b68667014034486d3b96e43bfa9492bda09494ec1eda80cca99f9ef132e9e4",
+        "hidden_ground_truth_class": "Tomato___Bacterial_spot"
+      },
+      {
+        "image_id": "pv_desc_008",
+        "source_image_id": "plantvillage_272eec0c1427568db255578643ade1ece9aacb9dbc47dc2757739ded63967556",
+        "hidden_ground_truth_class": "Tomato___Bacterial_spot"
+      },
+      {
+        "image_id": "pv_desc_009",
+        "source_image_id": "plantvillage_ea141da60ac7b39a3be077d91fe2f962001cbae7ea3ae2332fbef5a5cc3c9055",
+        "hidden_ground_truth_class": "Tomato___Bacterial_spot"
+      },
+      {
+        "image_id": "pv_desc_010",
+        "source_image_id": "plantvillage_bd1dd57b0a8c1d10a58e8d81bfb7d3e93d80913c5ae20f9ff2a92e02ea33c110",
+        "hidden_ground_truth_class": "Tomato___Bacterial_spot"
+      },
+      {
+        "image_id": "pv_desc_011",
+        "source_image_id": "plantvillage_1d3a2045590d19c87d389a590019f348eb7f9e4dc98910db87eac7d69d1c1df1",
+        "hidden_ground_truth_class": "Tomato___Early_blight"
+      },
+      {
+        "image_id": "pv_desc_012",
+        "source_image_id": "plantvillage_df738ba2699779d5976426e7ebe713ba35c451227cd5ab89d8aef43a5494a260",
+        "hidden_ground_truth_class": "Tomato___Early_blight"
+      },
+      {
+        "image_id": "pv_desc_013",
+        "source_image_id": "plantvillage_9f844b668d9a69f560042d9da1f2d7c188c2dc27190a0aa06b2253b7d462a7f0",
+        "hidden_ground_truth_class": "Tomato___Early_blight"
+      },
+      {
+        "image_id": "pv_desc_014",
+        "source_image_id": "plantvillage_09b4be6ad6eb00c595b58da32c62c6fb5a092719148cfdfcd48c68f7cd2bdb4a",
+        "hidden_ground_truth_class": "Tomato___Early_blight"
+      },
+      {
+        "image_id": "pv_desc_015",
+        "source_image_id": "plantvillage_09d147edfdf46e551fa165f21714a6b134b6e80b048982b0d21f2951552f0c6d",
+        "hidden_ground_truth_class": "Tomato___Late_blight"
+      },
+      {
+        "image_id": "pv_desc_016",
+        "source_image_id": "plantvillage_21024c66af6f71e7caee4100eea13fe0be79b878830b923eb3bf8a27f1957931",
+        "hidden_ground_truth_class": "Tomato___Late_blight"
+      },
+      {
+        "image_id": "pv_desc_017",
+        "source_image_id": "plantvillage_55fb03e68080cd44b2c8bb3c34fb52a7242abd26a39474c13732e505728f129c",
+        "hidden_ground_truth_class": "Tomato___Late_blight"
+      },
+      {
+        "image_id": "pv_desc_018",
+        "source_image_id": "plantvillage_5bd4ee4eab5bc18b884bcac04643aeb4d60bc56ab3ba1fa07fbf3fef50b9d5cb",
+        "hidden_ground_truth_class": "Tomato___Late_blight"
+      },
+      {
+        "image_id": "pv_desc_019",
+        "source_image_id": "plantvillage_c90f82c5de31c72bf33a12a1fafa573154dd266c7b196ba577935dbf9b064a12",
+        "hidden_ground_truth_class": "Tomato___Leaf_Mold"
+      },
+      {
+        "image_id": "pv_desc_020",
+        "source_image_id": "plantvillage_edfe7dc48f6204d8c89866bf22de5dbb26358df75dbf70d102d9a8b62ac176bd",
+        "hidden_ground_truth_class": "Tomato___Leaf_Mold"
+      },
+      {
+        "image_id": "pv_desc_021",
+        "source_image_id": "plantvillage_0ce7cbb57e9bd64cb2e1b644382411cfd67de3c99995cd604a7c2c2afe1640e4",
+        "hidden_ground_truth_class": "Tomato___Leaf_Mold"
+      },
+      {
+        "image_id": "pv_desc_022",
+        "source_image_id": "plantvillage_dc091d5776d427459ab3d108eec5d3b7c2db6bf302db4ee0f998ad5fe4bc945a",
+        "hidden_ground_truth_class": "Tomato___Leaf_Mold"
+      },
+      {
+        "image_id": "pv_desc_023",
+        "source_image_id": "plantvillage_56506e450cb9ab6bd203f593b3d92797ad8962a817e8765d1c46d02a05b554f4",
+        "hidden_ground_truth_class": "Tomato___Septoria_leaf_spot"
+      },
+      {
+        "image_id": "pv_desc_024",
+        "source_image_id": "plantvillage_e459094cb620a3a2909f4a010db273707ed0e490a28c4a3189d2e39ca32643b0",
+        "hidden_ground_truth_class": "Tomato___Septoria_leaf_spot"
+      },
+      {
+        "image_id": "pv_desc_025",
+        "source_image_id": "plantvillage_b64536f15223a4a329c0a2d93872a5a868a3dd6a055d6b537bfb2a10889afe33",
+        "hidden_ground_truth_class": "Tomato___Septoria_leaf_spot"
+      },
+      {
+        "image_id": "pv_desc_026",
+        "source_image_id": "plantvillage_5f8d7ec34cb09eab1031ad677c9d5b24b41fc30e3bf330bf65ed794502d6b56b",
+        "hidden_ground_truth_class": "Tomato___Septoria_leaf_spot"
+      },
+      {
+        "image_id": "pv_desc_027",
+        "source_image_id": "plantvillage_e65163f310de15e3061d3d972c975ddfd13aee029cfb7306155c77f54f52bddd",
+        "hidden_ground_truth_class": "Tomato___Tomato_mosaic_virus"
+      },
+      {
+        "image_id": "pv_desc_028",
+        "source_image_id": "plantvillage_9b4413eed7a165bf98c7fd01667b3d4f1904267575ddd1d250625bed39d65942",
+        "hidden_ground_truth_class": "Tomato___Tomato_mosaic_virus"
+      },
+      {
+        "image_id": "pv_desc_029",
+        "source_image_id": "plantvillage_042e235fa194e3a4d766ab65c9419ba56bc7eff89f99dbd3cab2feb1aefe0c10",
+        "hidden_ground_truth_class": "Tomato___Tomato_mosaic_virus"
+      },
+      {
+        "image_id": "pv_desc_030",
+        "source_image_id": "plantvillage_4c4b2bb7769d86ae5a5afa2c85a9b7eee1a1b34449885f7bc532e75bd0047b29",
+        "hidden_ground_truth_class": "Tomato___Tomato_mosaic_virus"
+      }
+    ],
+    "discipline": "Development candidate only; do not tune on the previous 60-image confirmation set. Entirely new unseen PV-train confirmation required if pursued; no PlantDoc or significance claim."
+  },
+  "status": "completed_development_only",
+  "returned_model_versions": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "completed_count": 30,
+  "pending_count": 0,
+  "parse_success_count": 30,
+  "parse_success_rate": 1.0,
+  "validation_pass_count": 30,
+  "leakage_count": 0,
+  "disease_name_leakage_count": 0,
+  "source_leakage_count": 0,
+  "meta_commentary_count": 0,
+  "explicit_diagnosis_count": 0,
+  "total_word_limit_violation_count": 0,
+  "overall_summary_word_limit_violation_count": 0,
+  "word_limit_violation_count": 0,
+  "failure_count": 0,
+  "embedding_shape": [
+    30,
+    768
+  ],
+  "l2_norms": [
+    0.9999998807907104,
+    1.0000001192092896,
+    0.9999998807907104,
+    1.0000001192092896,
+    1.0000001192092896,
+    0.9999998807907104,
+    0.9999998807907104,
+    1.0,
+    1.0,
+    1.000000238418579,
+    0.9999999403953552,
+    1.0,
+    1.0000001192092896,
+    0.9999999403953552,
+    1.0,
+    1.0000001192092896,
+    0.9999999403953552,
+    0.9999999403953552,
+    1.0,
+    1.0,
+    0.9999999403953552,
+    0.9999998211860657,
+    1.0,
+    1.0,
+    0.9999999403953552,
+    1.0000001192092896,
+    1.0,
+    0.9999999403953552,
+    0.9999997019767761,
+    0.9999998807907104
+  ],
+  "all_finite": true,
+  "chunk_metadata": [
+    {
+      "content_token_count": 58,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        58
+      ],
+      "chunk_total_token_counts": [
+        59
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 54,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        54
+      ],
+      "chunk_total_token_counts": [
+        55
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 43,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        43
+      ],
+      "chunk_total_token_counts": [
+        44
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 43,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        43
+      ],
+      "chunk_total_token_counts": [
+        44
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 40,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        40
+      ],
+      "chunk_total_token_counts": [
+        41
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 43,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        43
+      ],
+      "chunk_total_token_counts": [
+        44
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 47,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        47
+      ],
+      "chunk_total_token_counts": [
+        48
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 45,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        45
+      ],
+      "chunk_total_token_counts": [
+        46
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 49,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        49
+      ],
+      "chunk_total_token_counts": [
+        50
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 55,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        55
+      ],
+      "chunk_total_token_counts": [
+        56
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 46,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        46
+      ],
+      "chunk_total_token_counts": [
+        47
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 39,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        39
+      ],
+      "chunk_total_token_counts": [
+        40
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 47,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        47
+      ],
+      "chunk_total_token_counts": [
+        48
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 44,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        44
+      ],
+      "chunk_total_token_counts": [
+        45
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 41,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        41
+      ],
+      "chunk_total_token_counts": [
+        42
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 40,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        40
+      ],
+      "chunk_total_token_counts": [
+        41
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 46,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        46
+      ],
+      "chunk_total_token_counts": [
+        47
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 53,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        53
+      ],
+      "chunk_total_token_counts": [
+        54
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 56,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        56
+      ],
+      "chunk_total_token_counts": [
+        57
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 54,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        54
+      ],
+      "chunk_total_token_counts": [
+        55
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 35,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        35
+      ],
+      "chunk_total_token_counts": [
+        36
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 36,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        36
+      ],
+      "chunk_total_token_counts": [
+        37
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 50,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        50
+      ],
+      "chunk_total_token_counts": [
+        51
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 54,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        54
+      ],
+      "chunk_total_token_counts": [
+        55
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 45,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        45
+      ],
+      "chunk_total_token_counts": [
+        46
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 49,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        49
+      ],
+      "chunk_total_token_counts": [
+        50
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 52,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        52
+      ],
+      "chunk_total_token_counts": [
+        53
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 47,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        47
+      ],
+      "chunk_total_token_counts": [
+        48
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 52,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        52
+      ],
+      "chunk_total_token_counts": [
+        53
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    },
+    {
+      "content_token_count": 46,
+      "special_tokens_per_chunk": 1,
+      "content_capacity": 63,
+      "chunk_count": 1,
+      "chunk_content_token_counts": [
+        46
+      ],
+      "chunk_total_token_counts": [
+        47
+      ],
+      "discarded_content_tokens": 0,
+      "context_limit": 64
+    }
+  ],
+  "diagnostics": {
+    "same_class_cosine": {
+      "count": 60,
+      "mean": 0.8947586317857107,
+      "sample_std": 0.05304043162544376
+    },
+    "different_class_cosine": {
+      "count": 375,
+      "mean": 0.8794535717964173,
+      "sample_std": 0.05162885949743541
+    },
+    "cosine_gap": 0.015305059989293435,
+    "accuracy": 0.3,
+    "macro_f1": 0.30735930735930733,
+    "balanced_accuracy": 0.3,
+    "class_order": [
+      "Tomato___Bacterial_spot",
+      "Tomato___Early_blight",
+      "Tomato___Late_blight",
+      "Tomato___Leaf_Mold",
+      "Tomato___Septoria_leaf_spot",
+      "Tomato___Tomato_mosaic_virus"
+    ],
+    "confusion_matrix_axes": "rows=true, columns=predicted",
+    "confusion_matrix": [
+      [
+        1,
+        1,
+        0,
+        0,
+        2,
+        1
+      ],
+      [
+        1,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        2,
+        0
+      ],
+      [
+        3,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    ],
+    "per_class_recall": {
+      "Tomato___Bacterial_spot": 0.2,
+      "Tomato___Early_blight": 0.4,
+      "Tomato___Late_blight": 0.0,
+      "Tomato___Leaf_Mold": 0.4,
+      "Tomato___Septoria_leaf_spot": 0.0,
+      "Tomato___Tomato_mosaic_virus": 0.8
+    },
+    "per_image": [
+      {
+        "image_id": "pv_desc_001",
+        "true_class": "Tomato___Bacterial_spot",
+        "predicted_class": "Tomato___Tomato_mosaic_virus",
+        "cosine_scores": [
+          0.9230210781097412,
+          0.9038119316101074,
+          0.9137653708457947,
+          0.9012757539749146,
+          0.9382585287094116,
+          0.9453162550926208
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_002",
+        "true_class": "Tomato___Early_blight",
+        "predicted_class": "Tomato___Late_blight",
+        "cosine_scores": [
+          0.9404512643814087,
+          0.9464564323425293,
+          0.9506898522377014,
+          0.9281938672065735,
+          0.9449204206466675,
+          0.90996253490448
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_003",
+        "true_class": "Tomato___Late_blight",
+        "predicted_class": "Tomato___Early_blight",
+        "cosine_scores": [
+          0.928169310092926,
+          0.9524766206741333,
+          0.9435459971427917,
+          0.9208072423934937,
+          0.9452301859855652,
+          0.9347181916236877
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_004",
+        "true_class": "Tomato___Leaf_Mold",
+        "predicted_class": "Tomato___Septoria_leaf_spot",
+        "cosine_scores": [
+          0.9252740740776062,
+          0.9074907302856445,
+          0.9039702415466309,
+          0.8932589292526245,
+          0.9261699914932251,
+          0.9215246438980103
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_005",
+        "true_class": "Tomato___Septoria_leaf_spot",
+        "predicted_class": "Tomato___Bacterial_spot",
+        "cosine_scores": [
+          0.9684059023857117,
+          0.9528106451034546,
+          0.9419331550598145,
+          0.9170194864273071,
+          0.955583930015564,
+          0.9411382079124451
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_006",
+        "true_class": "Tomato___Tomato_mosaic_virus",
+        "predicted_class": "Tomato___Tomato_mosaic_virus",
+        "cosine_scores": [
+          0.9098195433616638,
+          0.8981344699859619,
+          0.9234331250190735,
+          0.9153943061828613,
+          0.9288777112960815,
+          0.9619143009185791
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_007",
+        "true_class": "Tomato___Bacterial_spot",
+        "predicted_class": "Tomato___Septoria_leaf_spot",
+        "cosine_scores": [
+          0.9573424458503723,
+          0.953750729560852,
+          0.9449334144592285,
+          0.9171221852302551,
+          0.9742926955223083,
+          0.94975346326828
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_008",
+        "true_class": "Tomato___Bacterial_spot",
+        "predicted_class": "Tomato___Early_blight",
+        "cosine_scores": [
+          0.9378306865692139,
+          0.9471145868301392,
+          0.9219169020652771,
+          0.8922876119613647,
+          0.9247505068778992,
+          0.8858637809753418
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_009",
+        "true_class": "Tomato___Bacterial_spot",
+        "predicted_class": "Tomato___Bacterial_spot",
+        "cosine_scores": [
+          0.9416348934173584,
+          0.9292069673538208,
+          0.9093471765518188,
+          0.8981255888938904,
+          0.9313356876373291,
+          0.8877040147781372
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_010",
+        "true_class": "Tomato___Bacterial_spot",
+        "predicted_class": "Tomato___Septoria_leaf_spot",
+        "cosine_scores": [
+          0.9619567394256592,
+          0.9446642994880676,
+          0.9352331161499023,
+          0.9318687319755554,
+          0.9687486886978149,
+          0.9381444454193115
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_011",
+        "true_class": "Tomato___Early_blight",
+        "predicted_class": "Tomato___Bacterial_spot",
+        "cosine_scores": [
+          0.9612168669700623,
+          0.9552868604660034,
+          0.9537709355354309,
+          0.9257611632347107,
+          0.9571254253387451,
+          0.9275051355361938
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_012",
+        "true_class": "Tomato___Early_blight",
+        "predicted_class": "Tomato___Late_blight",
+        "cosine_scores": [
+          0.9038444757461548,
+          0.9240716695785522,
+          0.94463711977005,
+          0.8910595774650574,
+          0.9223315119743347,
+          0.9120549559593201
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_013",
+        "true_class": "Tomato___Early_blight",
+        "predicted_class": "Tomato___Early_blight",
+        "cosine_scores": [
+          0.9411946535110474,
+          0.9601898193359375,
+          0.9534386992454529,
+          0.8992668390274048,
+          0.9354760646820068,
+          0.9027565717697144
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_014",
+        "true_class": "Tomato___Early_blight",
+        "predicted_class": "Tomato___Early_blight",
+        "cosine_scores": [
+          0.953872561454773,
+          0.9717164635658264,
+          0.9635158777236938,
+          0.9206676483154297,
+          0.9519532322883606,
+          0.9228371381759644
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_015",
+        "true_class": "Tomato___Late_blight",
+        "predicted_class": "Tomato___Septoria_leaf_spot",
+        "cosine_scores": [
+          0.9497950077056885,
+          0.9550596475601196,
+          0.9477948546409607,
+          0.9436851143836975,
+          0.9646072387695312,
+          0.9516499042510986
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_016",
+        "true_class": "Tomato___Late_blight",
+        "predicted_class": "Tomato___Septoria_leaf_spot",
+        "cosine_scores": [
+          0.9222464561462402,
+          0.9323654174804688,
+          0.9257180094718933,
+          0.9169236421585083,
+          0.9455205798149109,
+          0.9302616119384766
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_017",
+        "true_class": "Tomato___Late_blight",
+        "predicted_class": "Tomato___Early_blight",
+        "cosine_scores": [
+          0.8331186771392822,
+          0.8890436887741089,
+          0.8622158765792847,
+          0.8339016437530518,
+          0.8343257904052734,
+          0.8252325057983398
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_018",
+        "true_class": "Tomato___Late_blight",
+        "predicted_class": "Tomato___Early_blight",
+        "cosine_scores": [
+          0.9335022568702698,
+          0.9549092054367065,
+          0.9471242427825928,
+          0.9063580632209778,
+          0.9384163618087769,
+          0.9374818205833435
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_019",
+        "true_class": "Tomato___Leaf_Mold",
+        "predicted_class": "Tomato___Late_blight",
+        "cosine_scores": [
+          0.8971775770187378,
+          0.9046464562416077,
+          0.9170605540275574,
+          0.8485609292984009,
+          0.892027735710144,
+          0.8941421508789062
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_020",
+        "true_class": "Tomato___Leaf_Mold",
+        "predicted_class": "Tomato___Septoria_leaf_spot",
+        "cosine_scores": [
+          0.9237889051437378,
+          0.9167556762695312,
+          0.9175171852111816,
+          0.886564314365387,
+          0.9340224266052246,
+          0.9230644702911377
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_021",
+        "true_class": "Tomato___Leaf_Mold",
+        "predicted_class": "Tomato___Leaf_Mold",
+        "cosine_scores": [
+          0.7967777848243713,
+          0.8049846887588501,
+          0.8304173946380615,
+          0.8819367289543152,
+          0.8214800357818604,
+          0.8414649963378906
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_022",
+        "true_class": "Tomato___Leaf_Mold",
+        "predicted_class": "Tomato___Leaf_Mold",
+        "cosine_scores": [
+          0.799229621887207,
+          0.8111182451248169,
+          0.8103697896003723,
+          0.8759167790412903,
+          0.811241626739502,
+          0.7996963858604431
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_023",
+        "true_class": "Tomato___Septoria_leaf_spot",
+        "predicted_class": "Tomato___Late_blight",
+        "cosine_scores": [
+          0.9159155488014221,
+          0.9402995109558105,
+          0.9506361484527588,
+          0.918897271156311,
+          0.917771577835083,
+          0.9211884140968323
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_024",
+        "true_class": "Tomato___Septoria_leaf_spot",
+        "predicted_class": "Tomato___Tomato_mosaic_virus",
+        "cosine_scores": [
+          0.9581423997879028,
+          0.9370517730712891,
+          0.9452013969421387,
+          0.9297569990158081,
+          0.9660162925720215,
+          0.9660883545875549
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_025",
+        "true_class": "Tomato___Septoria_leaf_spot",
+        "predicted_class": "Tomato___Bacterial_spot",
+        "cosine_scores": [
+          0.9447705745697021,
+          0.9339154958724976,
+          0.9342881441116333,
+          0.9199521541595459,
+          0.9427096247673035,
+          0.9332463145256042
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_026",
+        "true_class": "Tomato___Septoria_leaf_spot",
+        "predicted_class": "Tomato___Bacterial_spot",
+        "cosine_scores": [
+          0.9665000438690186,
+          0.9418294429779053,
+          0.9313642382621765,
+          0.915522575378418,
+          0.9661447405815125,
+          0.9458309412002563
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_027",
+        "true_class": "Tomato___Tomato_mosaic_virus",
+        "predicted_class": "Tomato___Bacterial_spot",
+        "cosine_scores": [
+          0.9624897241592407,
+          0.9501516819000244,
+          0.9332784414291382,
+          0.915985643863678,
+          0.9581143856048584,
+          0.8999802470207214
+        ],
+        "correct": false
+      },
+      {
+        "image_id": "pv_desc_028",
+        "true_class": "Tomato___Tomato_mosaic_virus",
+        "predicted_class": "Tomato___Tomato_mosaic_virus",
+        "cosine_scores": [
+          0.8917990922927856,
+          0.8834698796272278,
+          0.9185220003128052,
+          0.8969487547874451,
+          0.9196951985359192,
+          0.9494860172271729
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_029",
+        "true_class": "Tomato___Tomato_mosaic_virus",
+        "predicted_class": "Tomato___Tomato_mosaic_virus",
+        "cosine_scores": [
+          0.9290984869003296,
+          0.902988612651825,
+          0.9172564744949341,
+          0.9378530383110046,
+          0.9429550170898438,
+          0.945252537727356
+        ],
+        "correct": true
+      },
+      {
+        "image_id": "pv_desc_030",
+        "true_class": "Tomato___Tomato_mosaic_virus",
+        "predicted_class": "Tomato___Tomato_mosaic_virus",
+        "cosine_scores": [
+          0.9141114950180054,
+          0.9194585084915161,
+          0.9459182024002075,
+          0.9143962860107422,
+          0.9422070384025574,
+          0.9664565920829773
+        ],
+        "correct": true
+      }
+    ]
+  },
+  "baseline_comparisons": {
+    "v1_free_form": {
+      "accuracy": {
+        "baseline": 0.3,
+        "v5": 0.3,
+        "v5_minus_baseline": 0.0
+      },
+      "macro_f1": {
+        "baseline": 0.2920875421,
+        "v5": 0.30735930735930733,
+        "v5_minus_baseline": 0.015271765259307346
+      },
+      "balanced_accuracy": {
+        "baseline": 0.3,
+        "v5": 0.3,
+        "v5_minus_baseline": 0.0
+      },
+      "cosine_gap": {
+        "baseline": 0.0136939838,
+        "v5": 0.015305059989293435,
+        "v5_minus_baseline": 0.0016110761892934346
+      }
+    },
+    "v2_overall_summary": {
+      "accuracy": {
+        "baseline": 0.5666666667,
+        "v5": 0.3,
+        "v5_minus_baseline": -0.2666666667
+      },
+      "macro_f1": {
+        "baseline": 0.5546897547,
+        "v5": 0.30735930735930733,
+        "v5_minus_baseline": -0.2473304473406927
+      },
+      "balanced_accuracy": {
+        "baseline": 0.5666666667,
+        "v5": 0.3,
+        "v5_minus_baseline": -0.2666666667
+      },
+      "cosine_gap": {
+        "baseline": 0.0194546985,
+        "v5": 0.015305059989293435,
+        "v5_minus_baseline": -0.0041496385107065645
+      }
+    },
+    "v3_discriminative_summary": {
+      "accuracy": {
+        "baseline": 0.2333333333,
+        "v5": 0.3,
+        "v5_minus_baseline": 0.06666666669999999
+      },
+      "macro_f1": {
+        "baseline": 0.2324074074,
+        "v5": 0.30735930735930733,
+        "v5_minus_baseline": 0.07495189995930734
+      },
+      "balanced_accuracy": {
+        "baseline": 0.2333333333,
+        "v5": 0.3,
+        "v5_minus_baseline": 0.06666666669999999
+      },
+      "cosine_gap": {
+        "baseline": 0.0150070343,
+        "v5": 0.015305059989293435,
+        "v5_minus_baseline": 0.0002980256892934352
+      }
+    },
+    "v4_evidence_summary": {
+      "accuracy": {
+        "baseline": 0.4,
+        "v5": 0.3,
+        "v5_minus_baseline": -0.10000000000000003
+      },
+      "macro_f1": {
+        "baseline": 0.42003367,
+        "v5": 0.30735930735930733,
+        "v5_minus_baseline": -0.1126743626406927
+      },
+      "balanced_accuracy": {
+        "baseline": 0.4,
+        "v5": 0.3,
+        "v5_minus_baseline": -0.10000000000000003
+      },
+      "cosine_gap": {
+        "baseline": 0.0111476208,
+        "v5": 0.015305059989293435,
+        "v5_minus_baseline": 0.004157439189293434
+      }
+    }
+  },
+  "qualitative_audit": [
+    {
+      "image_id": "pv_desc_001",
+      "hidden_ground_truth_class": "Tomato___Bacterial_spot",
+      "v2_overall_summary": "The leaf exhibits a distinct green to yellow color gradient with numerous dark spots primarily on the yellow area. Lesions vary in size and shape, mostly small and irregular, some with darker centers but no clear concentric rings. Leaf margins show slight curling and deformation. No obvious surface roughness or velvety growth is visible.",
+      "v4_evidence_summary": "Leaf exhibits mixed green and yellow discoloration with numerous small dark spots, some showing darker borders and lighter centers, unevenly distributed, and slight edge curling.",
+      "v5_overall_summary": "The leaf exhibits a mottled green and yellow color pattern with numerous small to medium dark spots scattered unevenly. Some spots have darker borders with lighter centers. Slight curling and irregular edges are visible, especially near the tip. No clear concentric rings or water-soaked areas are observed."
+    },
+    {
+      "image_id": "pv_desc_002",
+      "hidden_ground_truth_class": "Tomato___Early_blight",
+      "v2_overall_summary": "The leaf shows extensive dark discoloration with irregular lesions scattered unevenly. Lesions have dark centers without clear concentric rings. Leaf edges are curled and deformed, with rough texture and raised lesion areas.",
+      "v4_evidence_summary": "Leaf shows large irregular dark blotches with some yellowish discoloration near lesions and slight curling and deformation of leaf edges.",
+      "v5_overall_summary": "The leaf exhibits numerous irregular dark lesions scattered mainly in the central area, with some yellowish discoloration nearby. The surface shows curling and deformation, particularly at the edges, without clear concentric lesion patterns or velvety growth. Lesions lack distinct pale centers and are unevenly distributed across the leaf."
+    },
+    {
+      "image_id": "pv_desc_003",
+      "hidden_ground_truth_class": "Tomato___Late_blight",
+      "v2_overall_summary": "The leaf exhibits irregular yellow-brown discoloration with multiple lesions having pale centers and dark margins, unevenly spread mainly on edges. The leaf is curled and narrowed without clear concentric lesion patterns or surface texture changes.",
+      "v4_evidence_summary": "The leaf exhibits uneven yellowish discoloration with mottled green areas and slight curling and deformation along the edges, without distinct spots, rings, or blotches.",
+      "v5_overall_summary": "The leaf exhibits irregular yellowish-brown discoloration with numerous small to medium irregular lesions concentrated on the upper surface and edges. The leaf surface shows mild curling and rough texture without clear concentric lesion patterns or velvety growth."
+    },
+    {
+      "image_id": "pv_desc_004",
+      "hidden_ground_truth_class": "Tomato___Leaf_Mold",
+      "v2_overall_summary": "The tomato leaf exhibits mottled yellow-green discoloration with uneven distribution, lacking distinct spots or lesions. Slight curling and narrowing of the leaf edges are present, with no clear internal lesion patterns or surface texture changes visible.",
+      "v4_evidence_summary": "Leaf shows irregular yellow discoloration along veins and edges with slight curling and narrowing of leaf margins; no distinct spots, lesions, or concentric patterns observed.",
+      "v5_overall_summary": "The leaf exhibits a mottled color pattern with yellowing concentrated along veins and interveinal areas. There are no clearly defined spots or lesions, but slight curling and deformation of the leaf edges are present."
+    },
+    {
+      "image_id": "pv_desc_005",
+      "hidden_ground_truth_class": "Tomato___Septoria_leaf_spot",
+      "v2_overall_summary": "The tomato leaf exhibits multiple dark lesions with yellow halos on a green background. Lesions are irregularly shaped and scattered, with some leaf curling near affected areas. No clear concentric rings or surface roughness observed.",
+      "v4_evidence_summary": "Leaf shows multiple dark irregular spots with yellow halos scattered on a green background; spots have dark centers with faint lighter halos; no visible concentric rings or water-soaked appearance; leaf surface is flat without deformation.",
+      "v5_overall_summary": "The leaf shows multiple dark spots with yellow halos scattered across its surface. Lesions vary in size and shape, with some having darker centers and lighter surrounding areas. The leaf remains mostly flat without visible surface growth or deformation."
+    },
+    {
+      "image_id": "pv_desc_006",
+      "hidden_ground_truth_class": "Tomato___Tomato_mosaic_virus",
+      "v2_overall_summary": "The leaf exhibits a mottled color pattern with widespread small pale spots lacking clear concentric rings. Slight curling and roughness are present, with uneven distribution of discoloration across the leaf.",
+      "v4_evidence_summary": "The leaf displays a mottled light and dark green color pattern with uneven distribution and visible curling and narrowing deformation; no distinct lesions, spots, or concentric patterns are observed.",
+      "v5_overall_summary": "The leaf displays a mottled light and dark green coloration with uneven distribution and some curling deformation. No clear lesions, spots, or blotches are visible, and the surface lacks raised or velvety textures."
+    }
+  ],
+  "qualitative_audit_scope": "Text comparison only: inspect V2 broader observational coverage, V4 cue vocabulary, summary-only cue insertion, generic yellowing/curling dominance, and natural versus checklist-like language. Visual support cannot be established from text alone. Do not edit outputs after audit.",
+  "warning": "Development performance is not final evidence; new unseen PV-train confirmation required. No significance or generalization claim."
+}

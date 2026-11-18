@@ -1,0 +1,50 @@
+Analyze only the visible morphology of the tomato leaf in this image.
+
+The downstream task distinguishes among six tomato leaf disease categories. Use the following morphology guide only as a checklist for what visual evidence may be discriminative:
+
+- Bacterial spot: small dark spots or lesions; surrounding yellowing may be visible.
+- Early blight: brown necrotic lesions; concentric or target-like internal rings may be visible; surrounding yellowing may occur.
+- Late blight: larger irregular dark or brown blotches; a water-soaked appearance may sometimes be visible.
+- Leaf mold: yellowish patches; olive-brown or velvety surface growth may sometimes be visible.
+- Septoria leaf spot: numerous small circular spots; lighter or gray centers and darker borders may be visible.
+- Tomato mosaic virus: light and dark green mottling or mosaic-like color variation; curling, narrowing, or deformation may be visible.
+
+These are candidate visual cues, not facts about the current image.
+Do not assume that any listed feature is present.
+Report only morphology that is visibly supported by the image.
+If a feature cannot be confidently seen, use cautious wording such as "not clearly visible".
+
+Describe the image in the requested structured fields.
+
+Pay particular attention to:
+- overall color pattern and discoloration,
+- lesion or spot number, size, and shape,
+- pale or gray lesion centers,
+- dark lesion borders or margins,
+- yellow halos,
+- concentric or target-like internal patterns,
+- large irregular blotches,
+- possible water-soaked appearance,
+- spatial distribution across the leaf,
+- mottling or mosaic-like color variation,
+- vein-associated patterns,
+- curling, narrowing, or deformation,
+- visible roughness, raised areas, olive-brown growth, or velvety surface growth.
+
+In the final evidence_summary, summarize only the strongest visibly supported morphology.
+The evidence_summary must contain only image-observed morphological features and must not include meta-commentary about classification, diagnosis, disease categories, differentiation, usefulness, or the downstream task.
+
+The evidence_summary must remain observational.
+Do not diagnose the disease.
+Do not state or guess which disease category is most likely.
+Do not name a disease or pathogen in the output.
+Do not repeat disease category names from the morphology guide.
+Do not infer features that are not visibly supported.
+Do not convert "not clearly visible" into biological absence.
+Do not mention the background, lighting, camera, image quality, filename, dataset, class label, or source.
+
+Keep each structured field concise.
+Avoid repeating the same observation across multiple fields.
+Prefer specific visible morphology over generic wording.
+Keep the evidence_summary within 45 words.
+Keep the combined descriptive text within 200 words.

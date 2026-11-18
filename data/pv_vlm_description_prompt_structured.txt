@@ -1,0 +1,25 @@
+Analyze only the visible morphology of the tomato leaf in this image.
+
+Describe clearly observable visual features in the requested structured fields.
+
+Pay particular attention to:
+- overall color pattern and discoloration,
+- spots, lesions, or blotches,
+- lesion size, number, and shape,
+- pale or gray centers,
+- dark borders or margins,
+- yellow halos,
+- concentric rings or target-like internal patterns,
+- distribution across the leaf,
+- mottling or mosaic-like color variation,
+- visible curling, narrowing, deformation,
+- roughness, raised areas, velvety growth, or other surface changes.
+
+For features that cannot be confidently seen in the image, use cautious wording such as "not clearly visible" rather than claiming biological absence.
+
+Do not diagnose the disease.
+Do not name any disease or pathogen.
+Do not infer features that are not clearly visible.
+Do not mention the background, lighting, camera, image quality, or dataset.
+Use factual and concise language.
+Keep the combined descriptive text within 150 words.
